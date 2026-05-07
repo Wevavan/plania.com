@@ -163,17 +163,26 @@ export function renderNewsletterHtml(
 ): string {
   const { blocks } = parseBody(markdown);
   const parts = blocks.map((b) => {
-    if (b.kind === "heading") {
-      return `<h2 style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:${COLOR_INK};margin:32px 0 12px;letter-spacing:-0.3px;">${escapeHtml(b.title)}</h2>`;
+    switch (b.kind) {
+      case "heading":
+        return `<h2 style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:${COLOR_INK};margin:32px 0 12px;letter-spacing:-0.3px;">${escapeHtml(b.title)}</h2>`;
+      case "subheading":
+        return `<h3 style="font-family:Georgia,serif;font-size:17px;font-weight:600;color:${COLOR_INK};margin:24px 0 8px;letter-spacing:-0.2px;">${escapeHtml(b.title)}</h3>`;
+      case "pullquote": {
+        const attr = b.attribution
+          ? `<footer style="font-family:-apple-system,sans-serif;font-size:12px;color:${COLOR_MUTED};margin-top:8px;">— ${escapeHtml(b.attribution)}</footer>`
+          : "";
+        return `<blockquote style="margin:24px 0;padding:8px 0 8px 20px;border-left:2px solid ${COLOR_INK};"><p style="font-family:Georgia,serif;font-style:italic;font-size:18px;line-height:1.4;color:${COLOR_INK};margin:0;">${escapeHtml(b.text)}</p>${attr}</blockquote>`;
+      }
+      case "html":
+        return b.html;
+      case "paragraph":
+        return `<p style="font-family:Georgia,serif;font-size:16px;line-height:1.65;color:${COLOR_INK2};margin:0 0 16px;">${renderInline(b.text)}</p>`;
+      default: {
+        const _exhaustive: never = b;
+        return _exhaustive;
+      }
     }
-    if (b.kind === "pullquote") {
-      const attr = b.attribution
-        ? `<footer style="font-family:-apple-system,sans-serif;font-size:12px;color:${COLOR_MUTED};margin-top:8px;">— ${escapeHtml(b.attribution)}</footer>`
-        : "";
-      return `<blockquote style="margin:24px 0;padding:8px 0 8px 20px;border-left:2px solid ${COLOR_INK};"><p style="font-family:Georgia,serif;font-style:italic;font-size:18px;line-height:1.4;color:${COLOR_INK};margin:0;">${escapeHtml(b.text)}</p>${attr}</blockquote>`;
-    }
-    if (b.kind === "html") return b.html;
-    return `<p style="font-family:Georgia,serif;font-size:16px;line-height:1.65;color:${COLOR_INK2};margin:0 0 16px;">${renderInline(b.text)}</p>`;
   });
 
   const content = `
