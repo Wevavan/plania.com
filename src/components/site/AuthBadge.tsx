@@ -1,0 +1,63 @@
+import Link from "next/link";
+import { auth } from "@/auth";
+
+function initials(name?: string | null, email?: string | null): string {
+  const src = name || email || "·";
+  return src
+    .split(/[\s@.]+/)
+    .filter(Boolean)
+    .map((p) => p[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+type Variant = "header" | "pill";
+
+export async function AuthBadge({ variant = "header" }: { variant?: Variant }) {
+  const session = await auth();
+  const user = session?.user;
+
+  if (!user) {
+    return (
+      <Link
+        href="/signin"
+        className={
+          variant === "pill"
+            ? "border border-ink px-3 py-[5px] text-[11px] tracking-[0.6px] uppercase text-ink no-underline hover:bg-ink hover:text-paper transition-colors"
+            : "border border-ink px-[10px] py-[4px] text-ink tracking-[0.6px] text-[10px] uppercase no-underline hover:bg-ink hover:text-paper transition-colors"
+        }
+      >
+        Se connecter
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      href="/account"
+      className={
+        variant === "pill"
+          ? "flex items-center gap-2 border border-ink px-3 py-[4px] text-[11px] tracking-[0.4px] uppercase text-ink no-underline hover:bg-ink hover:text-paper transition-colors group"
+          : "flex items-center gap-[6px] border border-ink px-[10px] py-[3px] text-ink tracking-[0.4px] text-[10px] uppercase no-underline hover:bg-ink hover:text-paper transition-colors group"
+      }
+      title={user.email || undefined}
+    >
+      {user.image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={user.image}
+          alt=""
+          className="w-[18px] h-[18px] rounded-full object-cover"
+        />
+      ) : (
+        <span className="w-[18px] h-[18px] rounded-full bg-ink text-paper group-hover:bg-paper group-hover:text-ink flex items-center justify-center font-serif italic text-[10px] not-italic">
+          {initials(user.name, user.email)}
+        </span>
+      )}
+      <span className="normal-case font-medium">
+        {user.name?.split(" ")[0] || user.email?.split("@")[0]}
+      </span>
+    </Link>
+  );
+}

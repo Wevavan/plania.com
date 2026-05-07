@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /tmp/h.html -w \"Home %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /tmp/c.html -w \"Cat %{http_code}\\\\n\" http://localhost:3000/categorie/claude-ai)",
+      "Read(//tmp/**)"
+    ]
+  }
+}
