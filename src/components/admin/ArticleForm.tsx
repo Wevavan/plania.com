@@ -240,7 +240,7 @@ export function ArticleForm({
           <Field label="Nom (utilisé en interne)">
             <input
               name="author"
-              defaultValue={initial.author || "& Le Quotidien des IA"}
+              defaultValue={initial.author || "Planète IA"}
               className="form-input"
             />
           </Field>

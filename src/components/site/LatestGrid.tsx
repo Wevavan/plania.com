@@ -26,7 +26,7 @@ export function LatestGrid({ articles }: { articles: ArticleDTO[] }) {
               </p>
             )}
             <div className="font-serif italic text-[12px] text-muted">
-              & Le Quotidien des IA ·{" "}
+              Planète IA ·{" "}
               <span className="not-italic font-mono">
                 {formatDateShortFr(a.publishedAt)}
               </span>

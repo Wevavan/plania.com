@@ -8,6 +8,7 @@ import { getCategoryBySlug, categorySlug, ALL_CATEGORIES } from "@/lib/categorie
 import { parseBody } from "@/lib/article-body";
 import { formatDateFr } from "@/lib/format";
 import { auth } from "@/auth";
+import { getBaseUrl } from "@/lib/resend";
 import { ArticleShell } from "@/components/article/ArticleShell";
 import { ArticleBreadcrumb } from "@/components/article/ArticleBreadcrumb";
 import { ArticleHeader } from "@/components/article/ArticleHeader";
@@ -29,13 +30,55 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
-  if (!article) return { title: "Article introuvable — Linfoia" };
+  if (!article) return { title: "Article introuvable" };
   const full = article.titleTrail
     ? `${article.title} ${article.titleTrail}`
     : article.title;
+  const desc = article.dek || `Article publié sur Planète IA — ${article.category}.`;
+  const ogImage = article.imageUrl
+    ? article.imageUrl.includes("res.cloudinary.com")
+      ? article.imageUrl.replace(
+          "/upload/",
+          "/upload/c_fill,g_auto,w_1200,h_630,q_auto,f_auto/"
+        )
+      : article.imageUrl
+    : undefined;
+  const url = `${getBaseUrl()}/article/${article.slug}`;
+
   return {
-    title: `${full} — Linfoia`,
-    description: article.dek || undefined,
+    title: full,
+    description: desc,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: full,
+      description: desc,
+      url,
+      siteName: "Planète IA",
+      locale: "fr_FR",
+      publishedTime: article.publishedAt
+        ? new Date(article.publishedAt).toISOString()
+        : undefined,
+      authors: article.author ? [article.author] : undefined,
+      section: article.category,
+      tags: article.tags || undefined,
+      images: ogImage
+        ? [
+            {
+              url: ogImage,
+              width: 1200,
+              height: 630,
+              alt: article.imageAlt || full,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: full,
+      description: desc,
+      images: ogImage ? [ogImage] : undefined,
+    },
   };
 }
 
@@ -91,6 +134,7 @@ export default async function ArticlePage({
                 ? `${article.title} ${article.titleTrail}`
                 : article.title
             }
+            shareUrl={`${getBaseUrl()}/article/${article.slug}`}
           />
           <div className="w-full">
             <ArticleBody body={article.body} />

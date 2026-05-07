@@ -5,9 +5,10 @@ import { ShareButtons } from "./ShareButtons";
 type Props = {
   toc: Section[];
   shareTitle: string;
+  shareUrl: string;
 };
 
-export function LeftRail({ toc, shareTitle }: Props) {
+export function LeftRail({ toc, shareTitle, shareUrl }: Props) {
   return (
     <aside className="flex flex-col gap-8 lg:sticky lg:top-5 self-start">
       {toc.length > 0 && (
@@ -29,7 +30,7 @@ export function LeftRail({ toc, shareTitle }: Props) {
 
       <div>
         <RailHeader>Partager</RailHeader>
-        <ShareButtons title={shareTitle} />
+        <ShareButtons title={shareTitle} url={shareUrl} />
       </div>
 
       <div>

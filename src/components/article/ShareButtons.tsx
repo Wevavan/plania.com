@@ -1,16 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-type Props = { title: string };
+type Props = { title: string; url: string };
 
-export function ShareButtons({ title }: Props) {
-  const [url, setUrl] = useState("");
+export function ShareButtons({ title, url }: Props) {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
-
-  useEffect(() => {
-    setUrl(window.location.href);
-  }, []);
 
   const encUrl = encodeURIComponent(url);
   const encTitle = encodeURIComponent(title);
@@ -39,7 +34,6 @@ export function ShareButtons({ title }: Props) {
       <button
         type="button"
         onClick={() => copyTo("link", url)}
-        disabled={!url}
         className={cls}
       >
         {copiedKey === "link" ? "✓ Copié" : "Copier le lien"}
@@ -55,7 +49,6 @@ export function ShareButtons({ title }: Props) {
       <button
         type="button"
         onClick={() => copyTo("masto", composedText)}
-        disabled={!url}
         className={cls}
       >
         {copiedKey === "masto" ? "✓ Copié" : "Mastodon"}

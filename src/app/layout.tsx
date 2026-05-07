@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Inter_Tight, IBM_Plex_Mono } from "next/font/google";
+import { CookieBanner } from "@/components/site/CookieBanner";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -24,10 +25,39 @@ const ibmMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, "") ||
+  "https://xn--planteia-40a.com";
+
 export const metadata: Metadata = {
-  title: "& Le Quotidien des IA — Linfoia",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Planète IA",
+    template: "%s — Planète IA",
+  },
   description:
     "Un regard éditorial sur l'intelligence artificielle — depuis 2026",
+  applicationName: "Planète IA",
+  authors: [{ name: "Planète IA" }],
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Planète IA",
+    title: "Planète IA",
+    description:
+      "Un regard éditorial sur l'intelligence artificielle — depuis 2026",
+    url: SITE_URL,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Planète IA",
+    description:
+      "Un regard éditorial sur l'intelligence artificielle — depuis 2026",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -42,6 +72,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

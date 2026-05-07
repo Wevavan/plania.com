@@ -85,7 +85,7 @@ function emailShell(content: string, unsubscribeUrl?: string): string {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>& Le Quotidien des IA</title>
+  <title>Planète IA</title>
 </head>
 <body style="margin:0;padding:0;background:${COLOR_PAPER};">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${COLOR_PAPER};">
@@ -95,8 +95,7 @@ function emailShell(content: string, unsubscribeUrl?: string): string {
           <tr>
             <td style="padding:0 0 24px;border-bottom:1px solid ${COLOR_RULE};">
               <div style="font-family:Georgia,'Source Serif 4',serif;font-size:22px;font-weight:700;letter-spacing:-0.4px;color:${COLOR_INK};">
-                <span style="font-style:italic;font-weight:400;color:${COLOR_ACCENT};">&amp;</span>
-                Le Quotidien des IA
+                Planète IA
               </div>
             </td>
           </tr>
@@ -107,7 +106,7 @@ function emailShell(content: string, unsubscribeUrl?: string): string {
           </tr>
           <tr>
             <td style="padding:24px 0 0;border-top:1px solid ${COLOR_RULE};font-family:'Courier New',monospace;font-size:11px;color:${COLOR_MUTED};letter-spacing:0.4px;">
-              & LE QUOTIDIEN DES IA · DEPUIS 2026
+              PLANÈTE IA · DEPUIS 2026
               ${unsubscribeUrl ? `<br/><a href="${unsubscribeUrl}" style="color:${COLOR_MUTED};text-decoration:underline;">Se désabonner</a>` : ""}
             </td>
           </tr>

@@ -10,7 +10,7 @@ import { formatDateShortFr } from "@/lib/format";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Recherche — Linfoia",
+  title: "Recherche",
 };
 
 export default async function SearchPage({
@@ -109,7 +109,7 @@ export default async function SearchPage({
                       </p>
                     )}
                     <div className="font-serif italic text-[12px] text-muted">
-                      & Le Quotidien des IA ·{" "}
+                      Planète IA ·{" "}
                       <span className="not-italic font-mono">
                         {formatDateShortFr(a.publishedAt)}
                       </span>

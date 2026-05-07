@@ -43,7 +43,7 @@ function parseFormData(fd: FormData) {
   const dek = fieldString(fd, "dek");
   const titleTrail = fieldString(fd, "titleTrail");
   const body = fieldString(fd, "body");
-  const author = fieldString(fd, "author") || "& Le Quotidien des IA";
+  const author = fieldString(fd, "author") || "Planète IA";
   const authorBeat = fieldString(fd, "authorBeat");
   const authorBio = fieldString(fd, "authorBio");
   const imageUrl = fieldString(fd, "imageUrl");

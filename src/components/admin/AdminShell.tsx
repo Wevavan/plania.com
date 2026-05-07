@@ -22,8 +22,7 @@ export function AdminShell({
       <aside className="w-[240px] bg-ink text-paper flex flex-col py-6 px-5 fixed top-0 left-0 h-screen">
         <Link href="/" className="no-underline text-paper">
           <div className="font-serif text-[20px] font-bold tracking-[-0.4px]">
-            <span className="italic font-normal text-accent-warm">&</span>{" "}
-            Le Quotidien des IA
+            Planète IA
           </div>
           <div className="font-mono text-[10px] tracking-[2px] uppercase text-accent-warm mt-1">
             Console admin

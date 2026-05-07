@@ -30,7 +30,7 @@ export function ArticleHeader({ article }: { article: ArticleDTO }) {
 
       <div className="py-[18px] border-y border-ink">
         <div className="font-serif italic text-[15px] text-muted">
-          & Le Quotidien des IA ·{" "}
+          Planète IA ·{" "}
           <span className="not-italic font-mono text-[13px] text-ink">
             {formatDateFr(article.publishedAt)}
           </span>

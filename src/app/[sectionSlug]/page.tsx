@@ -24,9 +24,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { sectionSlug } = await params;
   const section = getSectionBySlug(sectionSlug);
-  if (!section) return { title: "Section introuvable — Linfoia" };
+  if (!section) return { title: "Section introuvable" };
   return {
-    title: `${section.name} — & Le Quotidien des IA`,
+    title: `${section.name} — Planète IA`,
     description: section.dek,
   };
 }

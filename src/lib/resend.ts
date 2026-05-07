@@ -6,7 +6,7 @@ export const resend: Resend | null = apiKey ? new Resend(apiKey) : null;
 
 export const FROM_EMAIL =
   process.env.AUTH_EMAIL_FROM || "onboarding@resend.dev";
-export const BRAND_NAME = "& Le Quotidien des IA";
+export const BRAND_NAME = "Planète IA";
 
 export function fromHeader(): string {
   return `${BRAND_NAME} <${FROM_EMAIL}>`;

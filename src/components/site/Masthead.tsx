@@ -8,8 +8,7 @@ export function Masthead() {
         <span />
       </div>
       <h1 className="font-serif text-[78px] font-bold tracking-[-2px] m-0 leading-[0.95]">
-        <span className="italic font-normal text-accent">&</span>
-        &nbsp;Le Quotidien des IA
+        Planète <span className="text-accent">IA</span>
       </h1>
       <div className="flex items-center gap-4 justify-center mt-[18px]">
         <span className="flex-1 max-w-[120px] h-px bg-ink" />

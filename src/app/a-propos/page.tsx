@@ -3,7 +3,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "À propos — & Le Quotidien des IA",
+  title: "À propos — Planète IA",
   description:
     "Un regard éditorial sur l'intelligence artificielle. Sans hype, sans catastrophisme.",
 };
@@ -16,8 +16,7 @@ export default function AboutPage() {
           À propos
         </span>
         <h1 className="font-serif text-[56px] font-bold leading-[1.05] tracking-[-1px] m-0 mt-4 mb-8 balance">
-          Pourquoi <span className="italic font-normal text-accent">&</span> Le
-          Quotidien des IA.
+          Pourquoi Planète IA.
         </h1>
 
         <div className="prose-article">

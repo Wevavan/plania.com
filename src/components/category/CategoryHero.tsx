@@ -41,7 +41,7 @@ export function CategoryHero({ featured, secondary }: Props) {
             </p>
           )}
           <div className="font-serif italic text-[14px] text-muted">
-            & Le Quotidien des IA ·{" "}
+            Planète IA ·{" "}
             <span className="not-italic font-mono text-[13px]">
               {formatDateFr(featured.publishedAt)}
             </span>
@@ -70,7 +70,7 @@ export function CategoryHero({ featured, secondary }: Props) {
               </Link>
             </h3>
             <div className="font-serif italic text-[12px] text-muted mt-[10px]">
-              & Le Quotidien des IA ·{" "}
+              Planète IA ·{" "}
               <span className="not-italic font-mono">
                 {formatDateShortFr(s.publishedAt)}
               </span>

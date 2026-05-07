@@ -1,25 +1,20 @@
 import { v2 as cloudinary } from "cloudinary";
 
-let configured = false;
-
 export function getCloudinary() {
-  if (!configured) {
-    const cloud_name = process.env.CLOUDINARY_CLOUD_NAME;
-    const api_key = process.env.CLOUDINARY_API_KEY;
-    const api_secret = process.env.CLOUDINARY_API_SECRET;
-    if (!cloud_name || !api_key || !api_secret) {
-      throw new Error(
-        "Cloudinary mal configuré. Renseignez CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY et CLOUDINARY_API_SECRET dans .env.local."
-      );
-    }
-    cloudinary.config({
-      cloud_name,
-      api_key,
-      api_secret,
-      secure: true,
-    });
-    configured = true;
+  const cloud_name = process.env.CLOUDINARY_CLOUD_NAME?.trim();
+  const api_key = process.env.CLOUDINARY_API_KEY?.trim();
+  const api_secret = process.env.CLOUDINARY_API_SECRET?.trim();
+  if (!cloud_name || !api_key || !api_secret) {
+    throw new Error(
+      "Cloudinary mal configuré. Renseignez CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY et CLOUDINARY_API_SECRET dans .env.local."
+    );
   }
+  cloudinary.config({
+    cloud_name,
+    api_key,
+    api_secret,
+    secure: true,
+  });
   return cloudinary;
 }
 
@@ -40,13 +35,6 @@ export async function uploadBufferToCloudinary(
         folder,
         public_id: `${Date.now()}-${safe.replace(/\.[^.]+$/, "")}`,
         resource_type: "image",
-        // Transformation par défaut : auto format + auto quality
-        // Cloudinary applique ces optimisations à la livraison
-        eager: [
-          // Pré-génère une version optimisée
-          { quality: "auto:good", fetch_format: "auto" },
-        ],
-        eager_async: false,
       },
       (err, result) => {
         if (err || !result) {

@@ -28,9 +28,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { categorySlug } = await params;
   const cat = getCategoryBySlug(categorySlug);
-  if (!cat) return { title: "Rubrique introuvable — Linfoia" };
+  if (!cat) return { title: "Rubrique introuvable" };
   return {
-    title: `${cat.name} — & Le Quotidien des IA`,
+    title: `${cat.name} — Planète IA`,
     description: cat.dek,
   };
 }

@@ -21,8 +21,7 @@ export function ArticleMasthead({
       <header className="flex justify-between items-center py-[18px] border-b-2 border-ink flex-wrap gap-4">
         <Link href="/" className="no-underline text-inherit">
           <span className="font-serif text-[26px] font-bold tracking-[-0.6px]">
-            <span className="italic font-normal text-accent">&</span>
-            &nbsp;Le Quotidien des IA
+            Planète IA
           </span>
         </Link>
         <div className="flex gap-5 items-center font-sans text-[13px] flex-wrap">
