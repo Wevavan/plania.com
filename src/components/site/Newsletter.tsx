@@ -19,7 +19,7 @@ export function Newsletter() {
           gratuit, et ce sera toujours sans publicité.
         </p>
         <p className="font-serif italic text-[14px] text-muted m-0">
-          — La rédaction.
+          - La rédaction.
         </p>
       </div>
 

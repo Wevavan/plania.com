@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth } from "@/auth";
+import { Avatar } from "./Avatar";
 
 function initials(name?: string | null, email?: string | null): string {
   const src = name || email || "·";
@@ -43,18 +44,11 @@ export async function AuthBadge({ variant = "header" }: { variant?: Variant }) {
       }
       title={user.email || undefined}
     >
-      {user.image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={user.image}
-          alt=""
-          className="w-[18px] h-[18px] rounded-full object-cover"
-        />
-      ) : (
-        <span className="w-[18px] h-[18px] rounded-full bg-ink text-paper group-hover:bg-paper group-hover:text-ink flex items-center justify-center font-serif italic text-[10px] not-italic">
-          {initials(user.name, user.email)}
-        </span>
-      )}
+      <Avatar
+        src={user.image}
+        initials={initials(user.name, user.email)}
+        size={18}
+      />
       <span className="normal-case font-medium">
         {user.name?.split(" ")[0] || user.email?.split("@")[0]}
       </span>

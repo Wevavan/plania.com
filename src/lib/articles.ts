@@ -65,7 +65,7 @@ function toDTO(a: Article): ArticleDTO {
   };
 }
 
-// Public filter — articles visible aux lecteurs : status=published ET publishedAt <= maintenant
+// Public filter - articles visible aux lecteurs : status=published ET publishedAt <= maintenant
 function publicFilter() {
   return { status: "published", publishedAt: { $lte: new Date() } };
 }

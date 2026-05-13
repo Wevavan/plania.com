@@ -30,7 +30,7 @@ export async function generateMetadata({
   const cat = getCategoryBySlug(categorySlug);
   if (!cat) return { title: "Rubrique introuvable" };
   return {
-    title: `${cat.name} — Planète IA`,
+    title: `${cat.name} - Planète IA`,
     description: cat.dek,
   };
 }

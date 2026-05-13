@@ -26,7 +26,7 @@ export async function generateMetadata({
   const section = getSectionBySlug(sectionSlug);
   if (!section) return { title: "Section introuvable" };
   return {
-    title: `${section.name} — Planète IA`,
+    title: `${section.name} - Planète IA`,
     description: section.dek,
   };
 }
@@ -50,7 +50,7 @@ export default async function SectionPage({
 
   const lastUpdate =
     stats.lastUpdateHours == null
-      ? "—"
+      ? "-"
       : stats.lastUpdateHours < 24
         ? `il y a ${stats.lastUpdateHours} h`
         : `il y a ${Math.round(stats.lastUpdateHours / 24)} j`;

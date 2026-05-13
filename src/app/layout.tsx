@@ -33,10 +33,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Planète IA",
-    template: "%s — Planète IA",
+    template: "%s - Planète IA",
   },
   description:
-    "Un regard éditorial sur l'intelligence artificielle — depuis 2026",
+    "Un regard éditorial sur l'intelligence artificielle - depuis 2026",
   applicationName: "Planète IA",
   authors: [{ name: "Planète IA" }],
   openGraph: {
@@ -45,14 +45,14 @@ export const metadata: Metadata = {
     siteName: "Planète IA",
     title: "Planète IA",
     description:
-      "Un regard éditorial sur l'intelligence artificielle — depuis 2026",
+      "Un regard éditorial sur l'intelligence artificielle - depuis 2026",
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
     title: "Planète IA",
     description:
-      "Un regard éditorial sur l'intelligence artificielle — depuis 2026",
+      "Un regard éditorial sur l'intelligence artificielle - depuis 2026",
   },
   robots: {
     index: true,

@@ -11,7 +11,7 @@ type Props = {
 export function CategoryHeader({ category, section, stats }: Props) {
   const lastUpdate =
     stats.lastUpdateHours == null
-      ? "—"
+      ? "-"
       : stats.lastUpdateHours < 24
         ? `il y a ${stats.lastUpdateHours} h`
         : `il y a ${Math.round(stats.lastUpdateHours / 24)} j`;

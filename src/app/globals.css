@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette « Forêt » — teintes vertes du plus clair au plus foncé */
-  --color-paper: #EFF4F1;
-  --color-paper-2: #DFEAE3;
+  /* Palette « Acier » - échelle de gris 50 → 900 (base #C0C0C0) */
+  --color-paper: #E6E6E6;
+  --color-paper-2: #DADADA;
   --color-ink: #0E0E0E;
   --color-ink-2: #272727;
   --color-ink-3: #414141;
   --color-muted: #5A5A5A;
   --color-muted-2: #747474;
-  --color-rule: #B0CABA;
-  --color-rule-2: #90B59E;
-  --color-stripe: #DFEAE3;
-  --color-accent: #418159;
-  --color-accent-warm: #31764B;
+  --color-rule: #A7A7A7;
+  --color-rule-2: #8D8D8D;
+  --color-stripe: #DADADA;
+  --color-accent: #272727;
+  --color-accent-warm: #0E0E0E;
 
   --font-serif: var(--font-source-serif), Georgia, serif;
   --font-sans: var(--font-inter-tight), system-ui, sans-serif;

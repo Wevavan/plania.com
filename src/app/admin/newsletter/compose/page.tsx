@@ -51,7 +51,7 @@ export default async function ComposeNewsletter() {
             <code className="font-mono">*italique*</code>,{" "}
             <code className="font-mono">[texte](url)</code>, et{" "}
             <code className="font-mono">&gt; Citation</code> sur une ligne avec
-            une ligne <code className="font-mono">— Source</code> juste après.
+            une ligne <code className="font-mono">- Source</code> juste après.
           </p>
         </label>
 

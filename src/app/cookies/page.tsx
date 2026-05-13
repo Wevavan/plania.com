@@ -75,10 +75,10 @@ export default function CookiesPage() {
           </p>
           <ul>
             <li>
-              <strong>Vercel</strong> (hébergement) — logs serveur
+              <strong>Vercel</strong> (hébergement) - logs serveur
             </li>
             <li>
-              <strong>MongoDB Atlas</strong> (base de données) — comptes,
+              <strong>MongoDB Atlas</strong> (base de données) - comptes,
               articles, abonnés newsletter
             </li>
             <li>

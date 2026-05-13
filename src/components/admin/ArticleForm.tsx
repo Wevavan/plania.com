@@ -192,7 +192,7 @@ export function ArticleForm({
       </Section>
 
       {/* Images */}
-      <Section title="Image principale (hero — page article)">
+      <Section title="Image principale (hero - page article)">
         <ImageUpload
           urlName="imageUrl"
           altName="imageAlt"
@@ -269,7 +269,7 @@ export function ArticleForm({
           Markdown supporté : <code>## Titre</code> pour une section,{" "}
           <code>**gras**</code>, <code>*italique*</code>,{" "}
           <code>[texte](url)</code>, et <code>&gt; Citation</code> avec une
-          ligne <code>— Source</code>. Le premier paragraphe devient l'intro
+          ligne <code>- Source</code>. Le premier paragraphe devient l'intro
           avec drop cap.
         </p>
         <MarkdownEditor name="body" defaultValue={initial.body || ""} />

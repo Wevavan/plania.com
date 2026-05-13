@@ -3,7 +3,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "À propos — Planète IA",
+  title: "À propos - Planète IA",
   description:
     "Un regard éditorial sur l'intelligence artificielle. Sans hype, sans catastrophisme.",
 };
@@ -46,7 +46,7 @@ export default function AboutPage() {
           <h2>Indépendance</h2>
           <p>
             Aucun investisseur dans l'IA, aucune publicité, aucun sponsor. Les
-            seuls revenus sont l'abonnement à la lettre — gratuit pour
+            seuls revenus sont l'abonnement à la lettre - gratuit pour
             l'instant.
           </p>
 
@@ -57,7 +57,7 @@ export default function AboutPage() {
           </p>
 
           <p className="font-serif italic text-[16px] text-muted mt-12">
-            — La rédaction.
+            - La rédaction.
           </p>
         </div>
       </article>

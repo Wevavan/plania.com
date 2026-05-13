@@ -125,7 +125,7 @@ export default async function AdminSubscribersPage({
                 {formatDateFr(s.createdAt)}
               </span>
               <span className="font-mono text-[11px] text-muted">
-                {s.confirmedAt ? formatRelativeFr(s.confirmedAt) : "—"}
+                {s.confirmedAt ? formatRelativeFr(s.confirmedAt) : "-"}
               </span>
             </div>
           ))}

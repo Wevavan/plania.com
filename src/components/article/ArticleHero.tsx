@@ -16,7 +16,7 @@ export function ArticleHero({ imageUrl, alt, caption, credit }: Props) {
           {caption}
           {credit && (
             <span className="not-italic font-sans text-[11px] text-muted-2 ml-2 tracking-[0.3px]">
-              — {credit}
+              - {credit}
             </span>
           )}
         </figcaption>

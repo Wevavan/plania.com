@@ -34,7 +34,7 @@ export async function generateMetadata({
   const full = article.titleTrail
     ? `${article.title} ${article.titleTrail}`
     : article.title;
-  const desc = article.dek || `Article publié sur Planète IA — ${article.category}.`;
+  const desc = article.dek || `Article publié sur Planète IA - ${article.category}.`;
   const ogImage = article.imageUrl
     ? article.imageUrl.includes("res.cloudinary.com")
       ? article.imageUrl.replace(

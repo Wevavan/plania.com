@@ -57,7 +57,7 @@ export async function sendContactMessage(
 
   const html = `
     <div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;padding:24px;background:#f7f7f5;color:#16130e;">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#418159;margin-bottom:8px;">Planète IA — formulaire contact</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#418159;margin-bottom:8px;">Planète IA - formulaire contact</div>
       <h1 style="font-family:Georgia,serif;font-size:22px;margin:0 0 16px;">${escapeHtml(subj)}</h1>
       <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px;">
         <tr><td style="padding:6px 0;color:#5A5A5A;width:80px;">Nom</td><td style="padding:6px 0;"><strong>${escapeHtml(name)}</strong></td></tr>
@@ -74,7 +74,7 @@ export async function sendContactMessage(
       from: fromHeader(),
       to: CONTACT_TO,
       replyTo: email,
-      subject: `[Contact Planète IA] ${subj} — ${name}`,
+      subject: `[Contact Planète IA] ${subj} - ${name}`,
       html,
       text,
     });

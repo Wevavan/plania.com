@@ -212,7 +212,7 @@ ${escCaption ? `  <figcaption>${escCaption}</figcaption>\n` : ""}</figure>`;
             </div>
           </div>
 
-          {/* Width — visible uniquement pour center */}
+          {/* Width - visible uniquement pour center */}
           {position === "center" && (
             <div>
               <span className="font-mono text-[10px] tracking-[1.2px] uppercase text-ink-3 mb-2 block">

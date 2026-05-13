@@ -9,7 +9,7 @@ export function ShareButtons({ title, url }: Props) {
 
   const encUrl = encodeURIComponent(url);
   const encTitle = encodeURIComponent(title);
-  const composedText = `${title} — ${url}`;
+  const composedText = `${title} - ${url}`;
   const encComposed = encodeURIComponent(composedText);
 
   async function copyTo(key: string, text: string) {

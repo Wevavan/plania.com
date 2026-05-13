@@ -1,31 +1,42 @@
 import Link from "next/link";
+import {
+  Home,
+  Cpu,
+  LineChart,
+  BookOpen,
+  Newspaper,
+  Info,
+  Mail,
+  type LucideIcon,
+} from "lucide-react";
 
-const LINKS = [
-  { label: "Accueil", href: "/" },
-  { label: "Intelligence Artificielle", href: "/intelligence-artificielle" },
-  { label: "Experts & Marché IA", href: "/experts-marche-ia" },
-  { label: "Tutoriels", href: "/tutoriels" },
-  { label: "Actualités", href: "/actualites" },
-  { label: "À propos", href: "/a-propos" },
-  { label: "Contact", href: "/contact" },
+const LINKS: { label: string; href: string; Icon: LucideIcon }[] = [
+  { label: "Accueil", href: "/", Icon: Home },
+  { label: "Intelligence Artificielle", href: "/intelligence-artificielle", Icon: Cpu },
+  { label: "Experts & Marché IA", href: "/experts-marche-ia", Icon: LineChart },
+  { label: "Tutoriels", href: "/tutoriels", Icon: BookOpen },
+  { label: "Actualités", href: "/actualites", Icon: Newspaper },
+  { label: "À propos", href: "/a-propos", Icon: Info },
+  { label: "Contact", href: "/contact", Icon: Mail },
 ];
 
 export function SiteNav({ active = "Accueil" }: { active?: string }) {
   return (
-    <nav className="flex gap-6 justify-center items-center pt-[10px] pb-[12px] border-b-2 border-ink font-sans text-[13px] flex-wrap">
-      {LINKS.map((l) => {
-        const isActive = l.label === active;
+    <nav className="flex gap-3 lg:gap-4 justify-center items-center pt-4 pb-4 border-b-2 border-ink font-sans text-[15px] flex-wrap">
+      {LINKS.map(({ label, href, Icon }) => {
+        const isActive = label === active;
         return (
           <Link
-            key={l.label}
-            href={l.href}
-            className={`no-underline tracking-[0.2px] pb-[6px] transition-colors hover:text-accent border-b-2 ${
+            key={label}
+            href={href}
+            className={`no-underline inline-flex items-center gap-2 px-3 py-[8px] tracking-[0.2px] transition-all border-b-2 ${
               isActive
-                ? "font-semibold text-ink border-accent"
-                : "font-normal text-ink-3 border-transparent"
+                ? "font-bold text-ink border-accent bg-paper-2"
+                : "font-semibold text-ink-2 border-transparent hover:bg-ink hover:text-paper hover:border-ink"
             }`}
           >
-            {l.label}
+            <Icon size={18} strokeWidth={2} aria-hidden="true" />
+            <span>{label}</span>
           </Link>
         );
       })}
@@ -33,7 +44,7 @@ export function SiteNav({ active = "Accueil" }: { active?: string }) {
         action="/recherche"
         method="get"
         role="search"
-        className="ml-auto flex items-center gap-2 border border-rule px-4 py-[8px] hover:border-ink focus-within:border-ink transition-colors min-w-[260px]"
+        className="ml-auto flex items-center gap-2 border border-rule px-4 py-[10px] hover:border-ink focus-within:border-ink transition-colors min-w-[260px]"
       >
         <span className="text-[14px] text-muted" aria-hidden="true">
           ⌕

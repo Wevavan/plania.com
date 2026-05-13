@@ -13,7 +13,7 @@ export function Masthead() {
       <div className="flex items-center gap-4 justify-center mt-[18px]">
         <span className="flex-1 max-w-[120px] h-px bg-ink" />
         <span className="italic text-[14px] text-ink-3">
-          Un regard éditorial sur l'intelligence artificielle — depuis 2026
+          Un regard éditorial sur l'intelligence artificielle - depuis 2026
         </span>
         <span className="flex-1 max-w-[120px] h-px bg-ink" />
       </div>

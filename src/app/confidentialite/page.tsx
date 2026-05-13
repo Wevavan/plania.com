@@ -43,7 +43,7 @@ export default function ConfidentialitePage() {
           </p>
           <h3>À la création d'un compte</h3>
           <p>
-            Email et — si connexion via Google — nom et photo de profil
+            Email et - si connexion via Google - nom et photo de profil
             renvoyés par Google. Aucune autre donnée n'est collectée.
           </p>
           <h3>À l'envoi du formulaire contact</h3>
@@ -100,7 +100,7 @@ export default function ConfidentialitePage() {
           </p>
           <ul>
             <li>
-              <strong>Vercel Inc.</strong> (États-Unis) — hébergement,{" "}
+              <strong>Vercel Inc.</strong> (États-Unis) - hébergement,{" "}
               <a
                 href="https://vercel.com/legal/dpa"
                 target="_blank"
@@ -110,19 +110,19 @@ export default function ConfidentialitePage() {
               </a>
             </li>
             <li>
-              <strong>MongoDB Atlas</strong> (Union européenne) — stockage des
+              <strong>MongoDB Atlas</strong> (Union européenne) - stockage des
               comptes, articles, abonnés newsletter
             </li>
             <li>
-              <strong>Resend</strong> (Irlande, UE) — envoi des emails
+              <strong>Resend</strong> (Irlande, UE) - envoi des emails
               (newsletter, magic link, contact)
             </li>
             <li>
-              <strong>Cloudinary</strong> (États-Unis) — stockage et livraison
+              <strong>Cloudinary</strong> (États-Unis) - stockage et livraison
               des images
             </li>
             <li>
-              <strong>Google LLC</strong> (États-Unis) — authentification OAuth
+              <strong>Google LLC</strong> (États-Unis) - authentification OAuth
               uniquement si vous choisissez « Se connecter avec Google »
             </li>
           </ul>

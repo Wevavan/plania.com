@@ -143,7 +143,7 @@ export async function sendConfirmationEmail(
       <span style="font-family:'Courier New',monospace;font-size:12px;word-break:break-all;">${url}</span>
     </p>
     <p style="margin:32px 0 0;font-size:13px;color:${COLOR_MUTED};">
-      Si vous n'avez pas demandé cette inscription, ignorez ce message — vous
+      Si vous n'avez pas demandé cette inscription, ignorez ce message - vous
       ne recevrez aucun autre email de notre part.
     </p>
   `;
@@ -169,7 +169,7 @@ export function renderNewsletterHtml(
         return `<h3 style="font-family:Georgia,serif;font-size:17px;font-weight:600;color:${COLOR_INK};margin:24px 0 8px;letter-spacing:-0.2px;">${escapeHtml(b.title)}</h3>`;
       case "pullquote": {
         const attr = b.attribution
-          ? `<footer style="font-family:-apple-system,sans-serif;font-size:12px;color:${COLOR_MUTED};margin-top:8px;">— ${escapeHtml(b.attribution)}</footer>`
+          ? `<footer style="font-family:-apple-system,sans-serif;font-size:12px;color:${COLOR_MUTED};margin-top:8px;">- ${escapeHtml(b.attribution)}</footer>`
           : "";
         return `<blockquote style="margin:24px 0;padding:8px 0 8px 20px;border-left:2px solid ${COLOR_INK};"><p style="font-family:Georgia,serif;font-style:italic;font-size:18px;line-height:1.4;color:${COLOR_INK};margin:0;">${escapeHtml(b.text)}</p>${attr}</blockquote>`;
       }

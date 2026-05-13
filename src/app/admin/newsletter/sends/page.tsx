@@ -79,7 +79,7 @@ export default async function NewsletterSendsHistory({
                     {s.subject}
                   </div>
                   <div className="font-mono text-[10px] text-muted mt-1">
-                    par {s.sentBy || "—"}
+                    par {s.sentBy || "-"}
                   </div>
                 </div>
                 <SendStatus status={s.status} />
@@ -93,7 +93,7 @@ export default async function NewsletterSendsHistory({
                   )}
                 </span>
                 <span className="font-mono text-[11px] text-muted">
-                  {s.sentAt ? formatRelativeFr(s.sentAt.toString()) : "—"}
+                  {s.sentAt ? formatRelativeFr(s.sentAt.toString()) : "-"}
                   <br />
                   <span className="text-[10px]">
                     {s.sentAt ? formatDateFr(s.sentAt.toString()) : ""}

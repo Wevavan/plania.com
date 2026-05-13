@@ -321,7 +321,7 @@ export function sectionUrl(section: SectionMeta): string {
   return `/${section.slug}`;
 }
 
-// Compatibilité historique — slugify utilisé par les anciens composants.
+// Compatibilité historique - slugify utilisé par les anciens composants.
 export function categorySlug(name: string): string {
   const cat = getCategoryByName(name);
   if (cat) return cat.slug;

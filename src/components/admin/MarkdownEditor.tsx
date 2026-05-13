@@ -110,7 +110,7 @@ export function MarkdownEditor({ name, defaultValue = "" }: Props) {
             rows={28}
             className="w-full bg-paper p-4 font-mono text-[13px] leading-[1.7] text-ink outline-none resize-y border-none focus:bg-stripe block"
             placeholder={
-              "Premier paragraphe (devient l'intro avec drop cap)…\n\n## Titre de section\n\nParagraphe.\n\n### Sous-titre\n\nDétail.\n\n> Une citation marquante\n— Source"
+              "Premier paragraphe (devient l'intro avec drop cap)…\n\n## Titre de section\n\nParagraphe.\n\n### Sous-titre\n\nDétail.\n\n> Une citation marquante\n- Source"
             }
           />
         </div>
@@ -165,7 +165,7 @@ function Block({ block, index }: { block: Block; index: number }) {
         </p>
         {block.attribution && (
           <footer className="font-sans text-[11px] text-muted">
-            — {block.attribution}
+            - {block.attribution}
           </footer>
         )}
       </blockquote>

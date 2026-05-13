@@ -52,7 +52,7 @@ export function parseBody(body: string): { blocks: Block[]; toc: Section[] } {
     }
 
     if (t.startsWith("> ")) {
-      // pullquote. Attribution = trailing "— ..." line
+      // pullquote. Attribution = trailing "- ..." line (em-dash, en-dash, hyphen)
       const lines = t
         .split(/\n/)
         .map((l) => l.replace(/^>\s?/, "").trim())

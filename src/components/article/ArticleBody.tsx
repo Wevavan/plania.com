@@ -16,8 +16,8 @@ export function ArticleBody({ body, locked = false, signInHref = "/signin" }: Pr
         <Paywall signInHref={signInHref} />
       ) : (
         <div className="flex items-center gap-[10px] justify-center font-sans text-[12px] text-muted tracking-[0.4px] py-8">
-          <span className="inline-block w-[10px] h-[10px] bg-ink" />— Fin du
-          papier —
+          <span className="inline-block w-[10px] h-[10px] bg-ink" />- Fin du
+          papier -
         </div>
       )}
     </div>
@@ -100,7 +100,7 @@ function renderBlock(b: Block, i: number) {
         </p>
         {b.attribution && (
           <footer className="font-sans text-[12px] text-muted tracking-[0.3px]">
-            — {b.attribution}
+            - {b.attribution}
           </footer>
         )}
       </blockquote>

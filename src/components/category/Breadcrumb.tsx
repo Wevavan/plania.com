@@ -39,25 +39,21 @@ export function Breadcrumb({
 
       {/* Sous-rubriques à droite */}
       {subcategories && subcategories.length > 0 && (
-        <nav className="flex items-center gap-x-3 gap-y-2 flex-wrap justify-end">
-          {subcategories.map((c, i) => {
+        <nav className="flex items-center gap-2 flex-wrap justify-end font-sans normal-case tracking-[0.2px] text-[13px]">
+          {subcategories.map((c) => {
             const active = c.slug === activeSubSlug;
             return (
-              <span key={c.slug} className="flex items-center gap-x-3">
-                <Link
-                  href={categoryUrl(c)}
-                  className={`no-underline transition-colors hover:text-accent ${
-                    active
-                      ? "text-ink font-semibold"
-                      : "text-muted"
-                  }`}
-                >
-                  {c.name}
-                </Link>
-                {i < subcategories.length - 1 && (
-                  <span className="text-rule-2">·</span>
-                )}
-              </span>
+              <Link
+                key={c.slug}
+                href={categoryUrl(c)}
+                className={`no-underline px-3 py-[6px] border-b-2 transition-all ${
+                  active
+                    ? "font-bold text-ink border-accent bg-paper-2"
+                    : "font-semibold text-ink-2 border-transparent hover:bg-ink hover:text-paper hover:border-ink"
+                }`}
+              >
+                {c.name}
+              </Link>
             );
           })}
         </nav>
