@@ -70,7 +70,10 @@ export default function RootLayout({
       lang="fr"
       className={`${sourceSerif.variable} ${interTight.variable} ${ibmMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-paper text-ink">
+      <body
+        className="min-h-full flex flex-col bg-paper text-ink overflow-x-hidden"
+        suppressHydrationWarning
+      >
         {children}
         <CookieBanner />
       </body>
