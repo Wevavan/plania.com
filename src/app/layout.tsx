@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Source_Serif_4, Inter_Tight, IBM_Plex_Mono } from "next/font/google";
 import { CookieBanner } from "@/components/site/CookieBanner";
 import { GoogleAnalytics } from "@/components/site/GoogleAnalytics";
+import { AnalyticsTracker } from "@/components/site/AnalyticsTracker";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -77,6 +78,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <GoogleAnalytics />
+        <AnalyticsTracker />
         {children}
         <CookieBanner />
       </body>

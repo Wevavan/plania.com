@@ -3,6 +3,7 @@ import { signOut } from "@/auth";
 
 const NAV = [
   { label: "Tableau de bord", href: "/admin" },
+  { label: "Analytics", href: "/admin/analytics" },
   { label: "Articles", href: "/admin/articles" },
   { label: "Abonnés", href: "/admin/subscribers" },
   { label: "Newsletter", href: "/admin/newsletter/sends" },
