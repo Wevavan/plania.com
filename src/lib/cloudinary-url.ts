@@ -1,0 +1,46 @@
+/**
+ * Transformation d'URL Cloudinary "au rendu".
+ *
+ * Permet d'afficher la MÊME image source au bon format selon le contexte
+ * (à la une 21:9, vignette 4:3, etc.) avec un recadrage intelligent (g_auto),
+ * sans toucher au fichier uploadé.
+ *
+ * - Sur une URL de livraison Cloudinary : insère les transformations après
+ *   `/image/upload/`.
+ * - Sur toute autre URL (placeholder, image externe) : renvoie l'URL inchangée.
+ */
+
+/** Convertit "21 / 9", "21/9", "16:10", "2.4 / 1" → "21:9" (format ratio Cloudinary). */
+function toCloudinaryAr(aspect?: string): string | null {
+  if (!aspect) return null;
+  const m = aspect
+    .replace(/\s+/g, "")
+    .match(/^(\d+(?:\.\d+)?)[/:](\d+(?:\.\d+)?)$/);
+  return m ? `${m[1]}:${m[2]}` : null;
+}
+
+type FillOptions = {
+  /** Ratio cible, accepte "21 / 9" ou "21:9". */
+  aspect?: string;
+  /** Largeur de livraison en px (la hauteur découle du ratio). */
+  width?: number;
+};
+
+export function cloudinaryFill(src: string, opts: FillOptions = {}): string {
+  if (!src || !src.includes("res.cloudinary.com")) return src;
+
+  const marker = "/image/upload/";
+  const i = src.indexOf(marker);
+  if (i < 0) return src;
+
+  // Si nos transformations sont déjà appliquées, on ne ré-insère pas.
+  const after = src.slice(i + marker.length);
+  if (/^c_fill,/.test(after)) return src;
+
+  const parts = ["c_fill", "g_auto", "f_auto", "q_auto", "dpr_auto"];
+  const ar = toCloudinaryAr(opts.aspect);
+  if (ar) parts.push(`ar_${ar}`);
+  if (opts.width) parts.push(`w_${Math.round(opts.width)}`);
+
+  return `${src.slice(0, i + marker.length)}${parts.join(",")}/${after}`;
+}

@@ -131,7 +131,7 @@ ${escCaption ? `  <figcaption>${escCaption}</figcaption>\n` : ""}</figure>`;
                   if (f) handleFile(f);
                 }}
                 disabled={uploading}
-                className="block w-full font-sans text-[13px] file:mr-4 file:py-2 file:px-4 file:border file:border-ink file:bg-paper file:text-ink file:font-medium file:cursor-pointer file:hover:bg-ink file:hover:text-paper file:transition-colors"
+                className="block w-full font-sans text-[13px] file:mr-4 file:py-2 file:px-4 file:border file:border-ink file:bg-paper file:text-ink file:font-medium file:cursor-pointer file:hover:bg-accent file:hover:text-paper file:transition-colors"
               />
             </label>
             <input

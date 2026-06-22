@@ -27,7 +27,7 @@ export function ShareButtons({ title, url }: Props) {
   }
 
   const cls =
-    "px-[10px] py-2 border border-rule font-sans text-[11px] text-ink text-center tracking-[0.2px] hover:bg-ink hover:text-paper hover:border-ink transition-all cursor-pointer no-underline block w-full";
+    "px-[10px] py-2 border border-rule font-sans text-[11px] text-ink text-center tracking-[0.2px] hover:bg-accent hover:text-paper hover:border-accent transition-all cursor-pointer no-underline block w-full";
 
   return (
     <div className="grid grid-cols-2 gap-[6px]">

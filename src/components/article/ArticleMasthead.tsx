@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { TopStrip } from "@/components/site/TopStrip";
 import { AuthBadge } from "@/components/site/AuthBadge";
+import { BrandLogo } from "@/components/site/BrandLogo";
 
 const NAV = [
   { label: "Accueil", href: "/" },
@@ -17,12 +17,13 @@ export function ArticleMasthead({
 }) {
   return (
     <>
-      <TopStrip />
       <header className="flex justify-between items-center py-[18px] border-b-2 border-ink flex-wrap gap-4">
-        <Link href="/" className="no-underline text-inherit">
-          <span className="font-serif text-[26px] font-bold tracking-[-0.6px]">
-            Planète IA
-          </span>
+        <Link
+          href="/"
+          className="no-underline text-inherit"
+          aria-label="Planète IA - Accueil"
+        >
+          <BrandLogo size="sm" priority />
         </Link>
         <div className="flex gap-5 items-center font-sans text-[13px] flex-wrap">
           {NAV.map((n) => {

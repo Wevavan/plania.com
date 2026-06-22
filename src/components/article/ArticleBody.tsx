@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { parseBody, renderInline, type Block } from "@/lib/article-body";
+import { sanitizeArticleHtml } from "@/lib/sanitize";
 
 type Props = {
   body: string;
@@ -107,9 +108,14 @@ function renderBlock(b: Block, i: number) {
     );
   }
   if (b.kind === "html") {
-    return <div key={i} dangerouslySetInnerHTML={{ __html: b.html }} />;
+    return (
+      <div
+        key={i}
+        dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(b.html) }}
+      />
+    );
   }
-  const html = renderInline(b.text);
+  const html = sanitizeArticleHtml(renderInline(b.text));
   if (b.lead) {
     return (
       <p

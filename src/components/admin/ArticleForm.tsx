@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ALL_CATEGORIES } from "@/lib/categories";
 import { MarkdownEditor } from "./MarkdownEditor";
 import { ImageUpload } from "./ImageUpload";
@@ -200,7 +201,7 @@ export function ArticleForm({
           defaultUrl={initial.imageUrl || ""}
           defaultAlt={initial.imageAlt || ""}
           aspect="21 / 9"
-          label="Format conseillé : panoramique 21:9 (au moins 1600 × 690 px)"
+          label="Tout format accepté : l'image est recadrée automatiquement (intelligemment) selon l'emplacement — à la une, article, vignette… Pour une qualité optimale, fournis du grand format paysage (au moins 1600 px de large)."
         />
         <Row>
           <Field label="Légende">
@@ -230,7 +231,7 @@ export function ArticleForm({
           defaultUrl={initial.thumbnailUrl || ""}
           defaultAlt={initial.thumbnailAlt || ""}
           aspect="4 / 3"
-          label="Format conseillé : 4:3 (au moins 800 × 600 px). Si vide, on utilisera l'image hero."
+          label="Tout format accepté : recadrage automatique en vignette selon les listes/cartes. Idéalement au moins 800 px de large. Si vide, on utilisera l'image hero."
         />
       </Section>
 
@@ -269,8 +270,8 @@ export function ArticleForm({
           Markdown supporté : <code>## Titre</code> pour une section,{" "}
           <code>**gras**</code>, <code>*italique*</code>,{" "}
           <code>[texte](url)</code>, et <code>&gt; Citation</code> avec une
-          ligne <code>- Source</code>. Le premier paragraphe devient l'intro
-          avec drop cap.
+          ligne <code>- Source</code>. Le premier paragraphe devient
+          l&apos;intro avec drop cap.
         </p>
         <MarkdownEditor name="body" defaultValue={initial.body || ""} />
       </Section>
@@ -286,7 +287,7 @@ export function ArticleForm({
               className="accent-accent"
             />
             <span>
-              <strong>Article principal</strong> (le « hero » de l'accueil)
+              <strong>Article principal</strong> (le « hero » de l&apos;accueil)
             </span>
           </label>
           <label className="flex items-center gap-3 font-sans text-[13px] text-ink cursor-pointer">
@@ -328,7 +329,8 @@ export function ArticleForm({
         </Row>
         <p className="font-sans text-[12px] text-muted">
           Si <strong>Statut = Publié</strong> et la date est dans le futur,
-          l'article est <em>programmé</em> et n'apparaît qu'à cette date.
+          l&apos;article est <em>programmé</em> et n&apos;apparaît qu&apos;à
+          cette date.
         </p>
       </Section>
 
@@ -352,12 +354,12 @@ export function ArticleForm({
           )}
         </div>
         <div className="flex items-center gap-3">
-          <a
+          <Link
             href="/admin/articles"
             className="font-sans text-[13px] text-ink-3 underline underline-offset-[3px]"
           >
             Annuler
-          </a>
+          </Link>
           <button
             type="submit"
             className="bg-ink text-paper font-sans text-[13px] font-medium px-6 py-[12px] hover:bg-accent transition-colors cursor-pointer border-none"

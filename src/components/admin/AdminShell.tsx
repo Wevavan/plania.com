@@ -39,7 +39,7 @@ export function AdminShell({
                 className={`block px-3 py-2 font-sans text-[13px] no-underline transition-colors ${
                   isActive
                     ? "bg-accent text-paper"
-                    : "text-rule-2 hover:text-paper hover:bg-ink-2"
+                    : "text-rule-2 hover:text-paper hover:bg-accent"
                 }`}
               >
                 {n.label}

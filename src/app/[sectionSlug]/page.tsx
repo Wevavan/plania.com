@@ -1,18 +1,16 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  getSectionStats,
   listArticlesByCategory,
   listArticlesBySection,
 } from "@/lib/articles";
-import { ALL_SECTIONS, getSectionBySlug } from "@/lib/categories";
+import { getSectionBySlug } from "@/lib/categories";
 import { SiteShell } from "@/components/site/SiteShell";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Newsletter } from "@/components/site/Newsletter";
 import { Categories } from "@/components/site/Categories";
 import { Hero } from "@/components/site/Hero";
 import { Breadcrumb } from "@/components/category/Breadcrumb";
-import { SectionHeader } from "@/components/section/SectionHeader";
 import { SubcategoryBlock } from "@/components/section/SubcategoryBlock";
 
 export const dynamic = "force-dynamic";
@@ -40,20 +38,10 @@ export default async function SectionPage({
   const section = getSectionBySlug(sectionSlug);
   if (!section) notFound();
 
-  const [stats, sectionArticles] = await Promise.all([
-    getSectionStats(section.slug),
-    listArticlesBySection(section.slug),
-  ]);
+  const sectionArticles = await listArticlesBySection(section.slug);
 
   const featured = sectionArticles[0] ?? null;
   const secondary = sectionArticles.slice(1, 4);
-
-  const lastUpdate =
-    stats.lastUpdateHours == null
-      ? "-"
-      : stats.lastUpdateHours < 24
-        ? `il y a ${stats.lastUpdateHours} h`
-        : `il y a ${Math.round(stats.lastUpdateHours / 24)} j`;
 
   // Pour chaque sous-cat, récupérer les 3 derniers articles
   const blocks = await Promise.all(
@@ -64,16 +52,10 @@ export default async function SectionPage({
   );
 
   return (
-    <SiteShell activeNav={section.name}>
+    <SiteShell activeNav={section.name} masthead={null}>
       <Breadcrumb
         current={section.name}
         subcategories={section.categories}
-      />
-      <SectionHeader
-        section={section}
-        total={stats.total}
-        totalSections={ALL_SECTIONS.length}
-        lastUpdate={lastUpdate}
       />
 
       {featured && <Hero article={featured} secondary={secondary} />}

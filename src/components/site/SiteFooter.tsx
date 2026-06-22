@@ -1,16 +1,26 @@
 import Link from "next/link";
+import { auth } from "@/auth";
 import { ALL_SECTIONS, sectionUrl } from "@/lib/categories";
+import { BrandLogo } from "./BrandLogo";
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const session = await auth();
+  const accountItems = [
+    { href: "/account", label: "Mon compte" },
+    ...(session?.user
+      ? []
+      : [{ href: "/signin", label: "Se connecter" }]),
+  ];
+
   return (
     <>
       <footer className="border-t border-rule grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 pt-8 pb-5">
         <div>
-          <div className="font-serif text-[20px] font-bold tracking-[-0.4px] mb-[6px]">
-            Planète IA
+          <div className="mb-2 -ml-1">
+            <BrandLogo size="sm" />
           </div>
           <div className="font-sans text-[12px] text-muted leading-[1.7]">
-            Un regard éditorial sur l'IA. Depuis 2026.
+            Un regard éditorial sur l&apos;IA. Depuis 2026.
           </div>
         </div>
         <FooterColumn
@@ -30,16 +40,10 @@ export function SiteFooter() {
             { href: "/contact", label: "Contact" },
           ]}
         />
-        <FooterColumn
-          label="Compte"
-          items={[
-            { href: "/account", label: "Mon compte" },
-            { href: "/signin", label: "Se connecter" },
-          ]}
-        />
+        <FooterColumn label="Compte" items={accountItems} />
       </footer>
-      <div className="border-t border-rule py-3 flex flex-col md:flex-row items-center justify-between gap-2 font-sans text-[11px] text-muted">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+      <div className="border-t border-rule py-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 font-sans text-[11px] text-muted text-center">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <Link href="/mentions-legales" className="text-muted hover:text-accent transition-colors no-underline">
             Mentions légales
           </Link>
@@ -51,7 +55,7 @@ export function SiteFooter() {
           </Link>
         </div>
         <div className="font-mono text-[10px] text-muted-2 tracking-[0.4px]">
-          © {new Date().getFullYear()} · Planète IA · Composé en Source Serif
+          © {new Date().getFullYear()} · Planète IA
         </div>
       </div>
     </>

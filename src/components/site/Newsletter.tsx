@@ -14,9 +14,9 @@ export function Newsletter() {
           <span className="text-accent"> »</span>
         </h2>
         <p className="text-[16px] leading-[1.6] text-ink-2 m-0 mb-5 text-center">
-          Chaque mercredi, une lettre ouverte sur l'actualité de l'IA. Cinq
-          lectures, parfois une archive retrouvée, parfois une colère. C'est
-          gratuit, et ce sera toujours sans publicité.
+          Chaque mercredi, une lettre ouverte sur l&apos;actualité de l&apos;IA.
+          Cinq lectures, parfois une archive retrouvée, parfois une colère.
+          C&apos;est gratuit, et ce sera toujours sans publicité.
         </p>
         <p className="font-serif italic text-[14px] text-muted m-0">
           - La rédaction.
@@ -43,15 +43,6 @@ export function Newsletter() {
           placeholder="votre.adresse@exemple.fr"
           className="w-full bg-transparent border-b border-rule pb-2 mb-5 font-serif italic text-[15px] outline-none focus:border-ink placeholder:text-muted"
         />
-        <label className="flex items-center gap-2 mb-5 font-sans text-[12px] text-ink-3 cursor-pointer">
-          <input
-            type="checkbox"
-            name="hors-series"
-            defaultChecked
-            className="accent-accent"
-          />
-          Recevoir aussi les hors-séries (4 par an)
-        </label>
         <button
           type="submit"
           className="w-full bg-accent text-paper font-sans text-[14px] font-semibold py-[14px] tracking-[0.2px] hover:bg-accent-warm transition-colors cursor-pointer border-none"

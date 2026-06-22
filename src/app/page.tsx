@@ -33,12 +33,12 @@ function EmptyState() {
 export default async function HomePage() {
   const [featured, secondary, latest] = await Promise.all([
     getFeaturedArticle(),
-    getSecondaryArticles(3),
+    getSecondaryArticles(2),
     getLatestArticles(4),
   ]);
 
   return (
-    <SiteShell activeNav="À la une">
+    <SiteShell activeNav="Accueil" masthead={null}>
       {featured ? (
         <Hero article={featured} secondary={secondary} />
       ) : (

@@ -92,7 +92,7 @@ export default async function UnsubscribePage({
           </button>
           <a
             href="/"
-            className="border border-ink text-ink font-sans text-[14px] font-medium px-7 py-[14px] no-underline hover:bg-ink hover:text-paper transition-colors"
+            className="border border-ink text-ink font-sans text-[14px] font-medium px-7 py-[14px] no-underline hover:bg-accent hover:text-paper transition-colors"
           >
             Annuler
           </a>

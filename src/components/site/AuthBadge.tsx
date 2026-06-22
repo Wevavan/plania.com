@@ -25,8 +25,8 @@ export async function AuthBadge({ variant = "header" }: { variant?: Variant }) {
         href="/signin"
         className={
           variant === "pill"
-            ? "border border-ink px-3 py-[5px] text-[11px] tracking-[0.6px] uppercase text-ink no-underline hover:bg-ink hover:text-paper transition-colors"
-            : "border border-ink px-[10px] py-[4px] text-ink tracking-[0.6px] text-[10px] uppercase no-underline hover:bg-ink hover:text-paper transition-colors"
+            ? "flex items-center border border-ink px-3 py-[7px] text-[12px] tracking-[0.6px] uppercase text-ink no-underline hover:bg-accent hover:text-paper transition-colors"
+            : "border border-ink px-[10px] py-[4px] text-ink tracking-[0.6px] text-[10px] uppercase no-underline hover:bg-accent hover:text-paper transition-colors"
         }
       >
         Se connecter
@@ -39,8 +39,8 @@ export async function AuthBadge({ variant = "header" }: { variant?: Variant }) {
       href="/account"
       className={
         variant === "pill"
-          ? "flex items-center gap-2 border border-ink px-3 py-[4px] text-[11px] tracking-[0.4px] uppercase text-ink no-underline hover:bg-ink hover:text-paper transition-colors group"
-          : "flex items-center gap-[6px] border border-ink px-[10px] py-[3px] text-ink tracking-[0.4px] text-[10px] uppercase no-underline hover:bg-ink hover:text-paper transition-colors group"
+          ? "flex items-center border border-ink px-[7px] py-[9px] text-ink no-underline hover:bg-accent hover:text-paper transition-colors group"
+          : "flex items-center gap-[6px] border border-ink px-[10px] py-[3px] text-ink tracking-[0.4px] text-[10px] uppercase no-underline hover:bg-accent hover:text-paper transition-colors group"
       }
       title={user.email || undefined}
     >
@@ -49,9 +49,11 @@ export async function AuthBadge({ variant = "header" }: { variant?: Variant }) {
         initials={initials(user.name, user.email)}
         size={18}
       />
-      <span className="normal-case font-medium">
-        {user.name?.split(" ")[0] || user.email?.split("@")[0]}
-      </span>
+      {variant !== "pill" && (
+        <span className="normal-case font-medium">
+          {user.name?.split(" ")[0] || user.email?.split("@")[0]}
+        </span>
+      )}
     </Link>
   );
 }

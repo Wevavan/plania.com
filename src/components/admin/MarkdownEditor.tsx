@@ -85,7 +85,7 @@ export function MarkdownEditor({ name, defaultValue = "" }: Props) {
                 type="button"
                 onClick={() => applyToolbar(t)}
                 title={t.help}
-                className="font-mono text-[11px] px-2 py-1 border border-rule bg-paper text-ink hover:bg-ink hover:text-paper hover:border-ink transition-colors cursor-pointer"
+                className="font-mono text-[11px] px-2 py-1 border border-rule bg-paper text-ink hover:bg-accent hover:text-paper hover:border-accent transition-colors cursor-pointer"
               >
                 {t.label}
               </button>

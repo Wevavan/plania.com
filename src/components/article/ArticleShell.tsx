@@ -8,7 +8,7 @@ export function ArticleShell({
   activeCategory?: string;
 }) {
   return (
-    <div className="max-w-[1600px] mx-auto bg-paper px-[72px] shadow-[0_0_0_1px_rgba(0,0,0,0.06)]">
+    <div className="max-w-[1920px] mx-auto bg-paper px-[80px] shadow-[0_0_0_1px_rgba(0,0,0,0.06)]">
       <ArticleMasthead activeCategory={activeCategory} />
       {children}
     </div>

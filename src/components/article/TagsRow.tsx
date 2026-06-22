@@ -11,7 +11,7 @@ export function TagsRow({ tags }: { tags: string[] }) {
         <Link
           key={t}
           href={`/recherche?q=${encodeURIComponent(t)}`}
-          className="px-3 py-[6px] border border-rule font-serif italic text-[13px] text-ink no-underline transition-all hover:bg-ink hover:text-paper hover:border-ink"
+          className="px-3 py-[6px] border border-rule font-serif italic text-[13px] text-ink no-underline transition-all hover:bg-accent hover:text-paper hover:border-accent"
         >
           {t}
         </Link>

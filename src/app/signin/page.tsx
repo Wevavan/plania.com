@@ -52,7 +52,7 @@ export default async function SignInPage({
           >
             <button
               type="submit"
-              className="w-full border border-ink bg-paper text-ink font-sans text-[14px] font-medium py-[14px] tracking-[0.3px] hover:bg-ink hover:text-paper transition-colors cursor-pointer"
+              className="w-full border border-ink bg-paper text-ink font-sans text-[14px] font-medium py-[14px] tracking-[0.3px] hover:bg-accent hover:text-paper transition-colors cursor-pointer"
             >
               Continuer avec Google
             </button>

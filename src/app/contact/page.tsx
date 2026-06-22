@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <SiteShell activeNav="Contact">
+    <SiteShell activeNav="Contact" masthead={null}>
       <article className="py-12 max-w-[780px] mx-auto">
         <span className="font-mono text-[11px] tracking-[2.4px] text-accent font-medium uppercase">
           Contact

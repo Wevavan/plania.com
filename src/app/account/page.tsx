@@ -67,7 +67,7 @@ export default async function AccountPage() {
         >
           <button
             type="submit"
-            className="border border-ink bg-transparent text-ink font-sans text-[13px] font-medium px-[22px] py-[12px] tracking-[0.3px] hover:bg-ink hover:text-paper transition-colors cursor-pointer"
+            className="border border-ink bg-transparent text-ink font-sans text-[13px] font-medium px-[22px] py-[12px] tracking-[0.3px] hover:bg-accent hover:text-paper transition-colors cursor-pointer"
           >
             Se déconnecter
           </button>

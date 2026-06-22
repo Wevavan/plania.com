@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <SiteShell activeNav="À propos">
+    <SiteShell activeNav="À propos" masthead={null}>
       <article className="py-12 max-w-[780px] mx-auto">
         <span className="font-mono text-[11px] tracking-[2.4px] text-accent font-medium uppercase">
           À propos

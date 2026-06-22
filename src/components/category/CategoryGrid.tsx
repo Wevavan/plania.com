@@ -65,7 +65,7 @@ export function CategoryGrid({
         ))}
 
         <div className="flex justify-between items-center pt-9 col-span-full">
-          <button className="font-sans text-[13px] font-medium bg-transparent border border-ink text-ink px-[22px] py-[12px] cursor-pointer tracking-[0.3px] hover:bg-ink hover:text-paper transition-colors">
+          <button className="font-sans text-[13px] font-medium bg-transparent border border-ink text-ink px-[22px] py-[12px] cursor-pointer tracking-[0.3px] hover:bg-accent hover:text-paper transition-colors">
             {remaining > 0
               ? `Charger la suite · ${remaining} articles restants`
               : "Fin des articles"}

@@ -12,8 +12,6 @@ import {
 import { SiteShell } from "@/components/site/SiteShell";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Breadcrumb } from "@/components/category/Breadcrumb";
-import { CategoryHeader } from "@/components/category/CategoryHeader";
-import { CategoryChips } from "@/components/category/CategoryChips";
 import { CategoryHero } from "@/components/category/CategoryHero";
 import { CategoryGrid } from "@/components/category/CategoryGrid";
 import { Newsletter } from "@/components/site/Newsletter";
@@ -67,8 +65,6 @@ export default async function CategoryPage({
         subcategories={section.categories}
         activeSubSlug={category.slug}
       />
-      <CategoryHeader category={category} section={section} stats={stats} />
-      <CategoryChips chips={category.chips} />
 
       {featured ? (
         <CategoryHero featured={featured} secondary={secondary} />

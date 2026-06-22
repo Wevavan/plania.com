@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette « Acier » - échelle de gris 50 → 900 (base #C0C0C0) */
+  /* Base neutre - échelle de gris pour structure */
   --color-paper: #E6E6E6;
   --color-paper-2: #DADADA;
   --color-ink: #0E0E0E;
@@ -12,8 +12,15 @@
   --color-rule: #A7A7A7;
   --color-rule-2: #8D8D8D;
   --color-stripe: #DADADA;
-  --color-accent: #272727;
-  --color-accent-warm: #0E0E0E;
+
+  /* Palette de marque - extraites du logo « Planète IA » */
+  --color-accent: #CC6600;        /* magenta principal (kickers, liens) */
+  --color-accent-warm: #9333EA;   /* violet pour hover & contraste */
+  --color-brand-pink: #CC6600;    /* alias accent */
+  --color-brand-magenta: #C026D3; /* magenta plus chaud */
+  --color-brand-purple: #9333EA;  /* violet vif */
+  --color-brand-orange: #F97316;  /* orange-corail */
+  --color-brand-cyan: #06B6D4;    /* cyan accent */
 
   --font-serif: var(--font-source-serif), Georgia, serif;
   --font-sans: var(--font-inter-tight), system-ui, sans-serif;

@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { uploadBufferToCloudinary, type UploadKind } from "@/lib/cloudinary";
+import { rateLimit, rateLimitConfigs } from "@/lib/rateLimit";
 
 const MAX_BYTES = 10 * 1024 * 1024; // 10 Mo
 const ALLOWED_MIMES = new Set([
@@ -11,10 +12,29 @@ const ALLOWED_MIMES = new Set([
   "image/gif",
 ]);
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session?.user || session.user.role !== "admin") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  // Rate limiting: 10 uploads par heure par IP
+  const rateLimitResult = await rateLimit(req, rateLimitConfigs.upload, "upload");
+
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      {
+        error: "Trop d'uploads. Veuillez réessayer plus tard.",
+      },
+      {
+        status: 429,
+        headers: {
+          "X-RateLimit-Limit": String(rateLimitConfigs.upload.uniqueTokenPerInterval),
+          "X-RateLimit-Remaining": String(rateLimitResult.remaining),
+          "X-RateLimit-Reset": String(rateLimitResult.reset),
+        },
+      }
+    );
   }
 
   let fd: FormData;
@@ -48,15 +68,25 @@ export async function POST(req: Request) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const uploaded = await uploadBufferToCloudinary(buffer, kind, file.name);
+
     return NextResponse.json({
       url: uploaded.url,
       width: uploaded.width,
       height: uploaded.height,
     });
   } catch (err) {
-    console.error("[upload]", err);
-    const message =
-      err instanceof Error ? err.message : "Erreur d'upload.";
-    return NextResponse.json({ error: message }, { status: 500 });
+    const { logError } = await import("@/lib/logger");
+    const { ApiErrors } = await import("@/lib/apiErrors");
+
+    logError(err, {
+      route: "/api/upload",
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type,
+      kind,
+    });
+
+    const message = err instanceof Error ? err.message : "Erreur d'upload.";
+    return ApiErrors.uploadError(message);
   }
 }

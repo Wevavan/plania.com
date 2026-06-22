@@ -49,7 +49,7 @@ export function Breadcrumb({
                 className={`no-underline px-3 py-[6px] border-b-2 transition-all ${
                   active
                     ? "font-bold text-ink border-accent bg-paper-2"
-                    : "font-semibold text-ink-2 border-transparent hover:bg-ink hover:text-paper hover:border-ink"
+                    : "font-semibold text-ink-2 border-transparent hover:bg-accent hover:text-paper hover:border-accent"
                 }`}
               >
                 {c.name}
