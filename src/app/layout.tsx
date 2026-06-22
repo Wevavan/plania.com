@@ -30,30 +30,31 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, "") ||
   "https://xn--planteia-40a.com";
 
+const SITE_TITLE = "Planète IA - L'actualité et l'analyse de l'IA";
+const SITE_DESCRIPTION =
+  "Décryptages, analyses et actualités sur l'intelligence artificielle : modèles, outils, marché et impacts. Un regard éditorial indépendant.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Planète IA",
+    default: SITE_TITLE,
     template: "%s - Planète IA",
   },
-  description:
-    "Un regard éditorial sur l'intelligence artificielle - depuis 2026",
+  description: SITE_DESCRIPTION,
   applicationName: "Planète IA",
   authors: [{ name: "Planète IA" }],
   openGraph: {
     type: "website",
     locale: "fr_FR",
     siteName: "Planète IA",
-    title: "Planète IA",
-    description:
-      "Un regard éditorial sur l'intelligence artificielle - depuis 2026",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Planète IA",
-    description:
-      "Un regard éditorial sur l'intelligence artificielle - depuis 2026",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
   robots: {
     index: true,

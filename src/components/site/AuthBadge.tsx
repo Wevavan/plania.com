@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogIn } from "lucide-react";
 import { auth } from "@/auth";
 import { Avatar } from "./Avatar";
 
@@ -20,14 +21,24 @@ export async function AuthBadge({ variant = "header" }: { variant?: Variant }) {
   const user = session?.user;
 
   if (!user) {
+    // Variante "pill" (barre de nav) : bouton-icône compact, même empreinte que
+    // la pastille avatar → le header reste sur une seule ligne, connecté ou non.
+    if (variant === "pill") {
+      return (
+        <Link
+          href="/signin"
+          aria-label="Se connecter"
+          title="Se connecter"
+          className="flex items-center justify-center border border-ink px-[9px] py-[9px] text-ink no-underline hover:bg-accent hover:text-paper transition-colors"
+        >
+          <LogIn size={18} strokeWidth={2} aria-hidden="true" />
+        </Link>
+      );
+    }
     return (
       <Link
         href="/signin"
-        className={
-          variant === "pill"
-            ? "flex items-center border border-ink px-3 py-[7px] text-[12px] tracking-[0.6px] uppercase text-ink no-underline hover:bg-accent hover:text-paper transition-colors"
-            : "border border-ink px-[10px] py-[4px] text-ink tracking-[0.6px] text-[10px] uppercase no-underline hover:bg-accent hover:text-paper transition-colors"
-        }
+        className="border border-ink px-[10px] py-[4px] text-ink tracking-[0.6px] text-[10px] uppercase no-underline hover:bg-accent hover:text-paper transition-colors"
       >
         Se connecter
       </Link>

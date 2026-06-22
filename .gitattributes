@@ -1,0 +1,18 @@
+# Normalise les fins de ligne : LF dans le dépôt pour tous les fichiers texte.
+# Évite les diffs bruités et les incohérences Windows (CRLF) / Linux (LF, Vercel).
+* text=auto eol=lf
+
+# Fichiers binaires : jamais de conversion de fins de ligne.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.svg   text
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.pdf   binary
