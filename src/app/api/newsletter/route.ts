@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
     // Parse request body
     const contentType = req.headers.get("content-type") || "";
     let data: { email: string; horsSeries: boolean };
+    let honeypot = "";
 
     try {
       if (contentType.includes("application/json")) {
@@ -37,16 +38,31 @@ export async function POST(req: NextRequest) {
           email: body.email,
           horsSeries: body.horsSeries !== false,
         };
+        honeypot = String(body.website || "");
       } else {
         const fd = await req.formData();
         data = {
           email: String(fd.get("email") || ""),
           horsSeries: fd.get("hors-series") !== null,
         };
+        honeypot = String(fd.get("website") || "");
       }
     } catch (err) {
       logError(err, { ip, route: "/api/newsletter", step: "parse_request" });
       return ApiErrors.invalidRequest("Requête invalide");
+    }
+
+    // Honeypot : si ce champ caché est rempli, c'est un bot. On fait comme si
+    // tout s'était bien passé (pour ne pas le renseigner) sans rien enregistrer.
+    if (honeypot.trim() !== "") {
+      logger.warn({ ip }, "Honeypot déclenché — inscription bot ignorée");
+      if (!contentType.includes("application/json")) {
+        return NextResponse.redirect(
+          new URL("/newsletter/check-email", req.url),
+          { status: 303 }
+        );
+      }
+      return NextResponse.json({ ok: true });
     }
 
     // Validation avec Zod

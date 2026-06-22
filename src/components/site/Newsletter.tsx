@@ -43,6 +43,15 @@ export function Newsletter() {
           placeholder="votre.adresse@exemple.fr"
           className="w-full bg-transparent border-b border-rule pb-2 mb-5 font-serif italic text-[15px] outline-none focus:border-ink placeholder:text-muted"
         />
+        {/* Honeypot anti-bot : caché aux humains, souvent rempli par les bots */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
         <button
           type="submit"
           className="w-full bg-accent text-paper font-sans text-[14px] font-semibold py-[14px] tracking-[0.2px] hover:bg-accent-warm transition-colors cursor-pointer border-none"
