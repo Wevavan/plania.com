@@ -14,9 +14,6 @@ export async function Comments({ slug }: { slug: string }) {
   return (
     <section className="py-9">
       <div className="flex items-center gap-4 pb-5 mb-6">
-        <span className="font-sans text-[11px] tracking-[2.4px] uppercase font-semibold text-ink">
-          Les notes des abonnés
-        </span>
         <span className="flex-1 h-px bg-rule" />
         <span className="font-mono text-[11px] text-muted tracking-[0.4px]">
           {comments.length} réaction{comments.length > 1 ? "s" : ""}

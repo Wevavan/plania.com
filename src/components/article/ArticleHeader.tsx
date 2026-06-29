@@ -1,5 +1,4 @@
 import type { ArticleDTO } from "@/lib/articles";
-import { formatDateFr } from "@/lib/format";
 
 export function ArticleHeader({ article }: { article: ArticleDTO }) {
   return (
@@ -36,15 +35,6 @@ export function ArticleHeader({ article }: { article: ArticleDTO }) {
           {article.dek}
         </p>
       )}
-
-      <div className="py-[18px] border-y border-ink">
-        <div className="font-serif italic text-[15px] text-muted">
-          Planète IA ·{" "}
-          <span className="not-italic font-mono text-[13px] text-ink">
-            {formatDateFr(article.publishedAt)}
-          </span>
-        </div>
-      </div>
     </header>
   );
 }

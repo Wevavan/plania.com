@@ -28,15 +28,13 @@ export async function compressImage(
       .webp({ quality, effort: 4 })
       .toBuffer();
 
-  let smallest: Buffer | null = null;
-  const consider = (buf: Buffer) => {
-    if (!smallest || buf.length < smallest.length) smallest = buf;
-  };
-
   // Phase 1 : pleine largeur, qualité décroissante.
-  for (let q = 82; q >= 40; q -= 7) {
+  let smallest = await encode(maxWidth, 82);
+  if (smallest.length <= maxBytes) return { buffer: smallest, format: "webp" };
+
+  for (let q = 75; q >= 40; q -= 7) {
     const buf = await encode(maxWidth, q);
-    consider(buf);
+    if (buf.length < smallest.length) smallest = buf;
     if (buf.length <= maxBytes) return { buffer: buf, format: "webp" };
   }
 
@@ -45,12 +43,12 @@ export async function compressImage(
   while (width > 320) {
     width = Math.round(width * 0.82);
     const buf = await encode(width, 52);
-    consider(buf);
+    if (buf.length < smallest.length) smallest = buf;
     if (buf.length <= maxBytes) return { buffer: buf, format: "webp" };
   }
 
   // Dernier recours : version la plus compacte possible.
   const buf = await encode(320, 38);
-  consider(buf);
-  return { buffer: smallest as Buffer, format: "webp" };
+  if (buf.length < smallest.length) smallest = buf;
+  return { buffer: smallest, format: "webp" };
 }

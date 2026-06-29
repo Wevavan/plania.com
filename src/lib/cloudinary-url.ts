@@ -10,13 +10,23 @@
  * - Sur toute autre URL (placeholder, image externe) : renvoie l'URL inchangée.
  */
 
-/** Convertit "21 / 9", "21/9", "16:10", "2.4 / 1" → "21:9" (format ratio Cloudinary). */
+/**
+ * Convertit "21 / 9", "16:10", "2.4 / 1" en ratio Cloudinary valide.
+ * Cloudinary accepte un ratio d'entiers "w:h" OU un décimal unique, mais PAS
+ * un mélange comme "2.4:1" (→ erreur 400). On bascule donc en décimal dès qu'une
+ * des deux valeurs n'est pas entière.
+ */
 function toCloudinaryAr(aspect?: string): string | null {
   if (!aspect) return null;
   const m = aspect
     .replace(/\s+/g, "")
     .match(/^(\d+(?:\.\d+)?)[/:](\d+(?:\.\d+)?)$/);
-  return m ? `${m[1]}:${m[2]}` : null;
+  if (!m) return null;
+  const w = parseFloat(m[1]);
+  const h = parseFloat(m[2]);
+  if (!w || !h) return null;
+  if (Number.isInteger(w) && Number.isInteger(h)) return `${w}:${h}`;
+  return (w / h).toFixed(3).replace(/\.?0+$/, "");
 }
 
 type FillOptions = {
