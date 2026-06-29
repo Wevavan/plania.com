@@ -1,4 +1,4 @@
-import { ArticleMasthead } from "./ArticleMasthead";
+import { SiteNav } from "@/components/site/SiteNav";
 
 export function ArticleShell({
   children,
@@ -9,7 +9,7 @@ export function ArticleShell({
 }) {
   return (
     <div className="max-w-[1920px] mx-auto bg-paper px-[80px] shadow-[0_0_0_1px_rgba(0,0,0,0.06)]">
-      <ArticleMasthead activeCategory={activeCategory} />
+      <SiteNav active={activeCategory} />
       {children}
     </div>
   );

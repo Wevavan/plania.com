@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { uploadBufferToCloudinary, type UploadKind } from "@/lib/cloudinary";
+import { compressImage } from "@/lib/image-compress";
 import { rateLimit, rateLimitConfigs } from "@/lib/rateLimit";
+
+const MAX_OUTPUT_BYTES = 100 * 1024; // 100 Ko cible après compression
 
 const MAX_BYTES = 10 * 1024 * 1024; // 10 Mo
 const ALLOWED_MIMES = new Set([
@@ -66,13 +69,21 @@ export async function POST(req: NextRequest) {
 
   try {
     const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const uploaded = await uploadBufferToCloudinary(buffer, kind, file.name);
+    const original = Buffer.from(arrayBuffer);
+
+    // Compression : toute image est ramenée sous ~100 Ko (WebP) avant stockage.
+    const { buffer, format } = await compressImage(original, {
+      maxBytes: MAX_OUTPUT_BYTES,
+    });
+    const outName = file.name.replace(/\.[^.]+$/, "") + `.${format}`;
+
+    const uploaded = await uploadBufferToCloudinary(buffer, kind, outName);
 
     return NextResponse.json({
       url: uploaded.url,
       width: uploaded.width,
       height: uploaded.height,
+      bytes: buffer.length,
     });
   } catch (err) {
     const { logError } = await import("@/lib/logger");

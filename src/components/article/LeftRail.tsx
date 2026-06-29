@@ -1,9 +1,9 @@
-import type { Section } from "@/lib/article-body";
+import type { TocItem } from "@/lib/article-html";
 import { ReadProgress } from "./ReadProgress";
 import { ShareButtons } from "./ShareButtons";
 
 type Props = {
-  toc: Section[];
+  toc: TocItem[];
   shareTitle: string;
   shareUrl: string;
 };
@@ -14,16 +14,27 @@ export function LeftRail({ toc, shareTitle, shareUrl }: Props) {
       {toc.length > 0 && (
         <div>
           <RailHeader>Au sommaire</RailHeader>
-          <nav className="flex flex-col">
-            {toc.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                className="block py-[10px] border-b border-dashed border-rule no-underline text-ink-3 font-serif text-[14px] leading-[1.3] transition-colors hover:text-accent"
-              >
-                {s.title}
-              </a>
-            ))}
+          <nav className="flex flex-col gap-px">
+            {toc.map((s) =>
+              s.level === 2 ? (
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  className="block py-[3px] no-underline text-ink font-serif font-medium text-[12px] leading-[1.25] transition-colors hover:text-accent"
+                >
+                  {s.title}
+                </a>
+              ) : (
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  className="flex gap-[6px] py-[2px] pl-3 no-underline text-ink-3 font-serif text-[11px] leading-[1.2] transition-colors hover:text-accent"
+                >
+                  <span className="text-rule-2 select-none">└</span>
+                  <span>{s.title}</span>
+                </a>
+              )
+            )}
           </nav>
         </div>
       )}

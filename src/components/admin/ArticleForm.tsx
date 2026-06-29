@@ -336,19 +336,18 @@ export function ArticleForm({
       <div className="flex items-center justify-between gap-4 pt-6 border-t border-rule">
         <div>
           {mode === "edit" && deleteAction && (
-            <form action={deleteAction}>
-              <button
-                type="submit"
-                className="font-sans text-[13px] text-accent border border-accent px-4 py-[10px] hover:bg-accent hover:text-paper transition-colors cursor-pointer"
-                onClick={(e) => {
-                  if (!confirm("Supprimer définitivement cet article ?")) {
-                    e.preventDefault();
-                  }
-                }}
-              >
-                Supprimer
-              </button>
-            </form>
+            <button
+              type="submit"
+              formAction={deleteAction}
+              className="font-sans text-[13px] text-accent border border-accent px-4 py-[10px] hover:bg-accent hover:text-paper transition-colors cursor-pointer"
+              onClick={(e) => {
+                if (!confirm("Supprimer définitivement cet article ?")) {
+                  e.preventDefault();
+                }
+              }}
+            >
+              Supprimer
+            </button>
           )}
         </div>
         <div className="flex items-center gap-3">

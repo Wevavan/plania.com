@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
@@ -12,13 +12,62 @@ import "highlight.js/styles/atom-one-dark.css";
 
 const lowlight = createLowlight(common);
 
+// Image avec largeur personnalisable (rendue en style inline, ex. width: 50%).
+const CustomImage = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      width: {
+        default: null,
+        parseHTML: (element: HTMLElement) =>
+          element.style.width || element.getAttribute("width") || null,
+        renderHTML: (attributes: { width?: string | null }) =>
+          attributes.width ? { style: `width: ${attributes.width}` } : {},
+      },
+      align: {
+        default: null,
+        parseHTML: (element: HTMLElement) => {
+          const m = (element.getAttribute("class") || "").match(
+            /align-(left|center|right)/
+          );
+          return m ? m[1] : null;
+        },
+        renderHTML: (attributes: { align?: string | null }) =>
+          attributes.align ? { class: `align-${attributes.align}` } : {},
+      },
+    };
+  },
+});
+
+const IMAGE_ALIGNS = [
+  { v: "left", label: "G", title: "Aligner à gauche" },
+  { v: "center", label: "C", title: "Centrer" },
+  { v: "right", label: "D", title: "Aligner à droite" },
+];
+
+const IMAGE_WIDTHS = ["25%", "50%", "75%", "100%"];
+
 type Props = {
   name: string;
   defaultValue?: string;
 };
 
+function uploadErrorMessage(data: unknown): string {
+  if (data && typeof data === "object" && "error" in data) {
+    const err = (data as { error: unknown }).error;
+    if (typeof err === "string") return err;
+    if (err && typeof err === "object" && "message" in err) {
+      return String((err as { message: unknown }).message);
+    }
+  }
+  return "Upload échoué. Vérifiez la configuration Cloudinary.";
+}
+
 export function RichEditor({ name, defaultValue = "" }: Props) {
   const [html, setHtml] = useState(defaultValue);
+  // Force le re-render de la barre d'outils quand le curseur bouge,
+  // pour que l'état actif (H2/H3/liste…) suive la sélection.
+  const [, setTick] = useState(0);
   const fileRef = useRef<HTMLInputElement | null>(null);
 
   const editor = useEditor({
@@ -27,13 +76,14 @@ export function RichEditor({ name, defaultValue = "" }: Props) {
       StarterKit.configure({
         heading: { levels: [2, 3] },
         codeBlock: false,
+        link: false,
       }),
       Link.configure({
         openOnClick: false,
         autolink: true,
         HTMLAttributes: { rel: "noopener noreferrer nofollow" },
       }),
-      Image.configure({ HTMLAttributes: { class: "rounded" } }),
+      CustomImage.configure({ HTMLAttributes: { class: "rounded" } }),
       Placeholder.configure({
         placeholder:
           "Écrivez votre article… (utilisez la barre d'outils pour les titres, listes, code, etc.)",
@@ -49,6 +99,17 @@ export function RichEditor({ name, defaultValue = "" }: Props) {
     onUpdate: ({ editor }) => setHtml(editor.getHTML()),
   });
 
+  useEffect(() => {
+    if (!editor) return;
+    const rerender = () => setTick((t) => t + 1);
+    editor.on("selectionUpdate", rerender);
+    editor.on("transaction", rerender);
+    return () => {
+      editor.off("selectionUpdate", rerender);
+      editor.off("transaction", rerender);
+    };
+  }, [editor]);
+
   const uploadImage = useCallback(
     async (file: File) => {
       if (!editor) return;
@@ -57,9 +118,12 @@ export function RichEditor({ name, defaultValue = "" }: Props) {
         fd.append("file", file);
         fd.append("kind", "hero");
         const res = await fetch("/api/upload", { method: "POST", body: fd });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || "Upload échoué.");
-        const alt = window.prompt("Texte alternatif (alt) de l'image :") || "";
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data?.url) {
+          throw new Error(uploadErrorMessage(data));
+        }
+        const alt =
+          window.prompt("Texte alternatif (alt) de l'image :", "") || "";
         editor.chain().focus().setImage({ src: data.url, alt }).run();
       } catch (e) {
         alert(e instanceof Error ? e.message : "Erreur d'upload.");
@@ -125,8 +189,29 @@ function Toolbar({
     );
   }
 
+  const blockLabel = editor.isActive("heading", { level: 2 })
+    ? "Titre H2"
+    : editor.isActive("heading", { level: 3 })
+      ? "Titre H3"
+      : editor.isActive("codeBlock")
+        ? "Bloc de code"
+        : editor.isActive("blockquote")
+          ? "Citation"
+          : editor.isActive("bulletList")
+            ? "Liste à puces"
+            : editor.isActive("orderedList")
+              ? "Liste numérotée"
+              : "Paragraphe";
+
   return (
     <div className="flex items-center gap-1 border-b border-rule bg-stripe px-2 py-2 flex-wrap sticky top-0 z-10">
+      <span
+        className="font-sans text-[11px] tracking-[0.5px] uppercase bg-ink text-paper px-2 py-1 mr-1 min-w-[110px] text-center"
+        title="Type du bloc où se trouve le curseur"
+      >
+        {blockLabel}
+      </span>
+      <Sep />
       <Btn
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         active={editor.isActive("heading", { level: 2 })}
@@ -209,6 +294,69 @@ function Toolbar({
       <Btn onClick={onImage} title="Insérer une image">
         🖼
       </Btn>
+
+      {editor.isActive("image") && (
+        <>
+          <Sep />
+          <span className="font-mono text-[10px] tracking-[1px] uppercase text-muted">
+            Largeur
+          </span>
+          {IMAGE_WIDTHS.map((w) => (
+            <Btn
+              key={w}
+              onClick={() =>
+                editor.chain().focus().updateAttributes("image", { width: w }).run()
+              }
+              active={editor.getAttributes("image").width === w}
+              title={`Largeur ${w}`}
+            >
+              {w}
+            </Btn>
+          ))}
+          <Btn
+            onClick={() => {
+              const v = window.prompt(
+                "Largeur personnalisée (ex. 400px ou 60%) :",
+                (editor.getAttributes("image").width as string) || ""
+              );
+              if (v)
+                editor
+                  .chain()
+                  .focus()
+                  .updateAttributes("image", { width: v.trim() })
+                  .run();
+            }}
+            title="Largeur personnalisée (px ou %)"
+          >
+            px…
+          </Btn>
+          <Btn
+            onClick={() =>
+              editor.chain().focus().updateAttributes("image", { width: null }).run()
+            }
+            title="Réinitialiser la largeur (auto)"
+          >
+            auto
+          </Btn>
+          <Sep />
+          <span className="font-mono text-[10px] tracking-[1px] uppercase text-muted">
+            Position
+          </span>
+          {IMAGE_ALIGNS.map((a) => (
+            <Btn
+              key={a.v}
+              onClick={() =>
+                editor.chain().focus().updateAttributes("image", { align: a.v }).run()
+              }
+              active={editor.getAttributes("image").align === a.v}
+              title={a.title}
+            >
+              {a.label}
+            </Btn>
+          ))}
+        </>
+      )}
+
       <span className="ml-auto flex items-center gap-1">
         <Btn
           onClick={() => editor.chain().focus().undo().run()}

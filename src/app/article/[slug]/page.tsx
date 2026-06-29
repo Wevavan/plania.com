@@ -136,7 +136,7 @@ export default async function ArticlePage({
             }
             shareUrl={`${getBaseUrl()}/article/${article.slug}`}
           />
-          <div className="w-full min-w-0">
+          <div className="w-full min-w-0 lg:border-r lg:border-rule lg:pr-8">
             <ArticleBody html={bodyHtml} />
             <TagsRow tags={article.tags} />
           </div>

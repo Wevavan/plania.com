@@ -22,7 +22,7 @@ const OPTIONS: sanitizeHtml.IOptions = {
   ],
   allowedAttributes: {
     a: ["href", "title", "target", "rel"],
-    img: ["src", "alt", "title", "width", "height", "loading"],
+    img: ["src", "alt", "title", "width", "height", "loading", "style"],
     th: ["colspan", "rowspan", "scope"],
     td: ["colspan", "rowspan"],
     col: ["span"],
@@ -31,6 +31,13 @@ const OPTIONS: sanitizeHtml.IOptions = {
   allowedSchemes: ["http", "https", "mailto", "tel"],
   allowedSchemesByTag: {
     img: ["http", "https", "data"],
+  },
+  // Seules les largeurs/hauteurs (px ou %) sont autorisées en style inline.
+  allowedStyles: {
+    img: {
+      width: [/^\d+(?:\.\d+)?(?:px|%)$/],
+      height: [/^\d+(?:\.\d+)?(?:px|%)$/],
+    },
   },
   // Force des liens sûrs (empêche le tabnabbing) et nofollow pour le SEO.
   transformTags: {

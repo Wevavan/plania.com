@@ -1,5 +1,7 @@
 import { sanitizeArticleHtml } from "@/lib/sanitize";
-import type { Section } from "@/lib/article-body";
+
+/** Entrée de sommaire hiérarchisée (niveau de titre conservé). */
+export type TocItem = { id: string; title: string; level: 2 | 3 };
 
 /**
  * Prépare le HTML d'un article (issu de l'éditeur WYSIWYG) pour l'affichage :
@@ -24,14 +26,14 @@ function stripTags(s: string): string {
 
 export function processArticleHtml(raw: string): {
   html: string;
-  toc: Section[];
+  toc: TocItem[];
 } {
   if (!raw) return { html: "", toc: [] };
 
   let html = sanitizeArticleHtml(raw);
-  const toc: Section[] = [];
+  const toc: TocItem[] = [];
   const usedIds = new Set<string>();
-  let n = 0;
+  let idx = 0;
 
   const uniqueId = (base: string, fallback: string) => {
     let id = base || fallback;
@@ -41,30 +43,18 @@ export function processArticleHtml(raw: string): {
     return id;
   };
 
-  // Titres de section (h2) → ancre + entrée de sommaire.
+  // Titres h2/h3 dans l'ordre du document → ancre + entrée de sommaire.
   html = html.replace(
-    /<h2(\b[^>]*)>([\s\S]*?)<\/h2>/gi,
-    (_m, attrs: string, inner: string) => {
-      n += 1;
+    /<(h2|h3)(\b[^>]*)>([\s\S]*?)<\/\1>/gi,
+    (m, tag: string, attrs: string, inner: string) => {
+      idx += 1;
       const title = stripTags(inner);
-      const id = uniqueId(slugify(title), `section-${n}`);
-      const num = String(n).padStart(2, "0");
-      toc.push({ n: num, id, title });
+      if (!title) return m;
+      const level: 2 | 3 = tag.toLowerCase() === "h2" ? 2 : 3;
+      const id = uniqueId(slugify(title), `h-${idx}`);
+      toc.push({ id, title, level });
       const cleanAttrs = attrs.replace(/\sid="[^"]*"/i, "");
-      return `<h2 id="${id}"${cleanAttrs}>${inner}</h2>`;
-    }
-  );
-
-  // Sous-titres (h3) → ancre (sans entrée de sommaire).
-  html = html.replace(
-    /<h3(\b[^>]*)>([\s\S]*?)<\/h3>/gi,
-    (m, attrs: string, inner: string) => {
-      const title = stripTags(inner);
-      const slug = slugify(title);
-      if (!slug) return m;
-      const id = uniqueId(slug, slug);
-      const cleanAttrs = attrs.replace(/\sid="[^"]*"/i, "");
-      return `<h3 id="${id}"${cleanAttrs}>${inner}</h3>`;
+      return `<${tag} id="${id}"${cleanAttrs}>${inner}</${tag}>`;
     }
   );
 
