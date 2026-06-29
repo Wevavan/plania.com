@@ -1,18 +1,17 @@
 import Link from "next/link";
-import { parseBody, renderInline, type Block } from "@/lib/article-body";
-import { sanitizeArticleHtml } from "@/lib/sanitize";
+import "highlight.js/styles/atom-one-dark.css";
 
 type Props = {
-  body: string;
+  /** HTML déjà traité (sanitisé + ancres + lettrine) via processArticleHtml. */
+  html: string;
   locked?: boolean;
   signInHref?: string;
 };
 
-export function ArticleBody({ body, locked = false, signInHref = "/signin" }: Props) {
-  const { blocks } = parseBody(body);
+export function ArticleBody({ html, locked = false, signInHref = "/signin" }: Props) {
   return (
     <div className="article-prose w-full">
-      {blocks.map((b, i) => renderBlock(b, i))}
+      <div dangerouslySetInnerHTML={{ __html: html }} />
       {locked ? (
         <Paywall signInHref={signInHref} />
       ) : (
@@ -61,75 +60,5 @@ function Paywall({ signInHref }: { signInHref: string }) {
         </div>
       </section>
     </div>
-  );
-}
-
-function renderBlock(b: Block, i: number) {
-  if (b.kind === "heading") {
-    return (
-      <h2
-        key={i}
-        id={b.id}
-        className="font-serif text-[30px] font-bold leading-[1.15] tracking-[-0.6px] balance m-0 mt-11 mb-[18px]"
-      >
-        {b.title}
-      </h2>
-    );
-  }
-  if (b.kind === "subheading") {
-    return (
-      <h3
-        key={i}
-        id={b.id}
-        className="font-serif text-[22px] font-semibold leading-[1.2] tracking-[-0.3px] balance m-0 mt-7 mb-3 text-ink-2"
-      >
-        {b.title}
-      </h3>
-    );
-  }
-  if (b.kind === "pullquote") {
-    return (
-      <blockquote
-        key={i}
-        className="my-9 py-6 pl-14 pr-8 border-l-2 border-ink relative"
-      >
-        <span className="absolute left-[18px] top-[10px] font-serif italic text-[56px] text-accent leading-none">
-          «
-        </span>
-        <p className="font-serif italic text-[24px] leading-[1.35] text-ink m-0 mb-[10px] font-normal balance">
-          {b.text}
-        </p>
-        {b.attribution && (
-          <footer className="font-sans text-[12px] text-muted tracking-[0.3px]">
-            - {b.attribution}
-          </footer>
-        )}
-      </blockquote>
-    );
-  }
-  if (b.kind === "html") {
-    return (
-      <div
-        key={i}
-        dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(b.html) }}
-      />
-    );
-  }
-  const html = sanitizeArticleHtml(renderInline(b.text));
-  if (b.lead) {
-    return (
-      <p
-        key={i}
-        className="text-[19px] leading-[1.65] text-ink font-serif m-0 mb-[22px] article-lead"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-    );
-  }
-  return (
-    <p
-      key={i}
-      className="text-[17px] leading-[1.7] text-ink-2 font-serif m-0 mb-5"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
   );
 }

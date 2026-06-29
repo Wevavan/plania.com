@@ -5,7 +5,7 @@ import {
   listArticlesByCategory,
 } from "@/lib/articles";
 import { getCategoryBySlug, categorySlug, ALL_CATEGORIES } from "@/lib/categories";
-import { parseBody } from "@/lib/article-body";
+import { processArticleHtml } from "@/lib/article-html";
 import { formatDateFr } from "@/lib/format";
 import { auth } from "@/auth";
 import { getBaseUrl } from "@/lib/resend";
@@ -96,7 +96,7 @@ export default async function ArticlePage({
   const article = await getArticleBySlug(slug);
   if (!article) notFound();
 
-  const { toc } = parseBody(article.body);
+  const { html: bodyHtml, toc } = processArticleHtml(article.body);
 
   const sameCategory = await listArticlesByCategory(article.category);
   const others = sameCategory.filter((a) => a.slug !== article.slug);
@@ -137,7 +137,7 @@ export default async function ArticlePage({
             shareUrl={`${getBaseUrl()}/article/${article.slug}`}
           />
           <div className="w-full min-w-0">
-            <ArticleBody body={article.body} />
+            <ArticleBody html={bodyHtml} />
             <TagsRow tags={article.tags} />
           </div>
           <RightRail mostRead={mostRead} category={categoryMeta} />

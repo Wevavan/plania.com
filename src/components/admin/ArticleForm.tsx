@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ALL_CATEGORIES } from "@/lib/categories";
-import { MarkdownEditor } from "./MarkdownEditor";
+import { RichEditor } from "./RichEditor";
 import { ImageUpload } from "./ImageUpload";
 
 const KICKERS = [
@@ -267,13 +267,11 @@ export function ArticleForm({
       {/* Corps */}
       <Section title="Corps de l'article">
         <p className="font-sans text-[12px] text-muted mb-3">
-          Markdown supporté : <code>## Titre</code> pour une section,{" "}
-          <code>**gras**</code>, <code>*italique*</code>,{" "}
-          <code>[texte](url)</code>, et <code>&gt; Citation</code> avec une
-          ligne <code>- Source</code>. Le premier paragraphe devient
-          l&apos;intro avec drop cap.
+          Éditeur visuel : mets en forme directement avec la barre d&apos;outils
+          (titres, listes, citations, <strong>bloc de code</strong>, liens,
+          images). Le premier paragraphe devient l&apos;intro avec lettrine.
         </p>
-        <MarkdownEditor name="body" defaultValue={initial.body || ""} />
+        <RichEditor name="body" defaultValue={initial.body || ""} />
       </Section>
 
       {/* Mise en avant */}

@@ -68,9 +68,10 @@ function parseFormData(fd: FormData) {
     ? new Date(publishedAtRaw)
     : new Date();
 
-  // Compute word count from body
+  // Compte les mots à partir du HTML (on retire les balises et entités).
   const wordCount = body
-    .replace(/[#>*`\-]/g, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z]+;/gi, " ")
     .trim()
     .split(/\s+/)
     .filter(Boolean).length;

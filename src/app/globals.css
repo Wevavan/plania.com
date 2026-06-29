@@ -134,6 +134,119 @@ body {
   border-radius: 2px;
 }
 
+/* Éléments produits par l'éditeur WYSIWYG (HTML) */
+.article-prose h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1.15;
+  letter-spacing: -0.6px;
+  margin: 2.5rem 0 1rem;
+  scroll-margin-top: 90px;
+}
+.article-prose h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  margin: 1.75rem 0 0.75rem;
+  color: var(--color-ink-2);
+  scroll-margin-top: 90px;
+}
+.article-prose p {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-ink-2);
+  margin: 0 0 1.25rem;
+}
+.article-prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-rule-2);
+}
+.article-prose ul,
+.article-prose ol {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-ink-2);
+  margin: 0 0 1.25rem;
+  padding-left: 1.5rem;
+}
+.article-prose ul {
+  list-style: disc;
+}
+.article-prose ol {
+  list-style: decimal;
+}
+.article-prose li {
+  margin: 0.3rem 0;
+}
+.article-prose li::marker {
+  color: var(--color-accent);
+}
+.article-prose blockquote {
+  margin: 1.75rem 0;
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  border-left: 3px solid var(--color-ink);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--color-ink);
+}
+.article-prose blockquote p {
+  font-style: italic;
+  color: var(--color-ink);
+  margin: 0;
+}
+.article-prose hr {
+  border: none;
+  border-top: 1px solid var(--color-rule);
+  margin: 2rem 0;
+}
+.article-prose img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+.article-prose pre {
+  background: #282c34;
+  color: #abb2bf;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.article-prose pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit;
+  letter-spacing: 0;
+}
+
+/* Éditeur WYSIWYG (TipTap / ProseMirror) */
+.ProseMirror {
+  outline: none;
+}
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--color-muted);
+  font-style: italic;
+  pointer-events: none;
+  height: 0;
+}
+
 .article-infobox {
   margin: 2.25rem 0;
   border: 1px solid var(--color-ink);
